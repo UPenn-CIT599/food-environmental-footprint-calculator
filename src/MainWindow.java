@@ -11,6 +11,8 @@ public class MainWindow {
 
 	/**
 	 * Launch the application.
+	 * This application is the main welcome window, displaying the title of the application, and holds input fields for user to enter their name and email address.
+	 * User must enter their name and email address before clicking the 'Begin' button to proceed to the next frame - CalculatorFrame.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

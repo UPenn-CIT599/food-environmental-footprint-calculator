@@ -7,7 +7,11 @@ import java.awt.event.ActionEvent;
 public class ResultsFrame extends JFrame {
 
 	/**
-	 * (Iris: I'm not sure what the first line is for, but need to add this line for the code to work)
+	 * This frame is the frame where calculation results will be presented.
+	 * The window is split into 3 panels - leftmost is the panel displaying the food and the weight of the food,
+	 * THe middle panel displays the equivalent CO2 emission results,
+	 * The rightmost panel displays a list of alternative low-emission foods for the user's consideration.
+	 * User can choose to export the results in the form of a PDF, or have the results sent to their email.
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

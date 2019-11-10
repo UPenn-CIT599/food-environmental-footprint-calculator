@@ -9,7 +9,12 @@ import java.awt.event.ActionEvent;
 public class CalculatorFrame extends JFrame {
 
 	/**
-	 * (Iris: Not sure what the first line is for, but need to add this line for the code to work)
+	 * This frame is the calculator frame, which the user is brought after clicking the 'Begin' button in the MainWindow page.
+	 * There is a panel on the left for user to input food item and input the weight of the food item, and at the food item onto a JTable on the right panel of the frame.
+	 * Upon adding the food item, user can decide to add more food items, or delete existing food items from the JTable.
+	 * After completion, user can click on 'Calculate!' button, which will execute the backend calculator methods.
+	 * User will be brought to the next frame, where the result outputs will be presented.
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
