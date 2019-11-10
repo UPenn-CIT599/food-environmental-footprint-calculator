@@ -14,6 +14,7 @@ public class MainWindow {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
@@ -82,6 +83,7 @@ public class MainWindow {
 		// Welcome screen > Left panel > "Begin" button
 		JButton btnBegin = new JButton("Begin");
 		btnBegin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				String userName = nameTextField.getText();
 				String userEmail = emailTextField.getText();
