@@ -38,13 +38,11 @@ public class MainWindow {
 	 */
 	private void initialize() {
 
-		// Configures the welcome screen of the interface window
+		// Configure the welcome screen of the interface window
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(0, 2));
-
-		// Configures welcome screen of the interface window
 
 		// Welcome screen > Left panel
 		JPanel welcomeLeftPanel = new JPanel();
@@ -115,7 +113,7 @@ public class MainWindow {
 		// Welcome screen > Right panel > Background image via JLabel
 		JLabel welcomeRightPanelBackground = new JLabel("");
 		ImageIcon welcomeImage = new ImageIcon(
-				"/Users/iris/Documents/GitHub/cit591-final-project/src/welcome-image.jpg"); // Photo by Tobias Tullius on Unsplash, https://unsplash.com/photos/PXXtq6bp6cs
+				"/Users/iris/Documents/GitHub/cit591-final-project/src/welcome-image.jpg"); // Update link. Photo by Tobias Tullius on Unsplash, https://unsplash.com/photos/PXXtq6bp6cs
 		Image originalImage = welcomeImage.getImage();
 		Image resizedImage = originalImage.getScaledInstance(400, 400, java.awt.Image.SCALE_SMOOTH); // Resize image to fit welcomeRightPanel
 		ImageIcon resizedWelcomeImage = new ImageIcon(resizedImage);

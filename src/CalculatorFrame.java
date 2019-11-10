@@ -9,12 +9,11 @@ import java.awt.event.ActionEvent;
 public class CalculatorFrame extends JFrame {
 
 	/**
-	 * 
+	 * (Iris: Not sure what the first line is for, but need to add this line for the code to work)
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_1;
-	private JTable table;
+
 
 	/**
 	 * Launch the application.
@@ -51,19 +50,19 @@ public class CalculatorFrame extends JFrame {
 		contentPane.add(userInputPanel);
 		userInputPanel.setLayout(null);
 
-		// Calculator frame > userInputPanel: Food selection and input fields
+		// CalculatorFrame > userInputPanel: Food selection and input fields
 		
-		// (user instructions)
+		// User instructions
 		JLabel lblInstructions = new JLabel("Input the food items below:");
 		lblInstructions.setBounds(50, 48, 273, 16);
 		userInputPanel.add(lblInstructions);
 		
-		// (food label)
+		// Food label
 		JLabel lblFood = new JLabel("Food");
 		lblFood.setBounds(50, 94, 61, 16);
 		userInputPanel.add(lblFood);
 
-		// (food input field)
+		// Food input field
 		String[] foodArrayList = { "Egg", "Chicken", "Milk", "Almond", "Strawberry" }; // Example only. Actual list to be read from database csv.
 		JComboBox<String> foodComboBox = new JComboBox<>();
 		foodComboBox.setEditable(true);
@@ -71,18 +70,18 @@ public class CalculatorFrame extends JFrame {
 		foodComboBox.setBounds(108, 89, 215, 27);
 		userInputPanel.add(foodComboBox);
 
-		// (weight label)
+		// Weight label
 		JLabel lblWeight = new JLabel("Weight");
 		lblWeight.setBounds(50, 122, 153, 16);
 		userInputPanel.add(lblWeight);
 
-		// (weight input field)
+		// Weight input field
 		JTextField weightTextField = new JTextField();
 		weightTextField.setColumns(10);
 		weightTextField.setBounds(108, 117, 144, 26);
 		userInputPanel.add(weightTextField);
 		
-		// (amount weight unit selection)
+		// Weight unit selection
 		String[] weightUnitList = { "g", "kg"};
 		JComboBox<String> weightComboBox = new JComboBox<>();
 		weightComboBox.setModel(new DefaultComboBoxModel<>(weightUnitList));
@@ -90,16 +89,16 @@ public class CalculatorFrame extends JFrame {
 		userInputPanel.add(weightComboBox);
 			
 		
-		// Calculator frame > addedFoodPanel: Displays list of foods added by user, before consolidating
+		// CalculatorFrame > addedFoodPanel: Displays list of foods added by user, before consolidating
 		JPanel addedFoodPanel = new JPanel();
 		contentPane.add(addedFoodPanel);
 		addedFoodPanel.setLayout(null);
 		
-		// (table with added food items)
+		// Table with added food items
 		String[] columnHeaders = {"Food", "Weight (g)"};
 		DefaultTableModel model = new DefaultTableModel(columnHeaders,0); // initialize with 0 rows
 		
-		// (button to add food item into table)
+		// Button to add food item into table
 		JButton btnAddFood = new JButton("Add Food");
 		btnAddFood.setBounds(206, 173, 117, 29);
 		userInputPanel.add(btnAddFood);
@@ -107,42 +106,48 @@ public class CalculatorFrame extends JFrame {
 		btnAddFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (weightComboBox.getSelectedItem() == "kg") {
-					// write method - if input food item is not found in list, find closest food item based on spelling
+					// Execute UserInputMatcher.java
 					model.addRow(new Object[]{foodComboBox.getSelectedItem(), Double.parseDouble(weightTextField.getText())*1000});
 				} else {
-					// write method - if input food item is not found in list, find closest food item based on spelling
+					// Execute UserInputMatcher.java
 					model.addRow(new Object[]{foodComboBox.getSelectedItem(), weightTextField.getText()});
 				} }
 		});
 		
-		// (scrollpane containing addedFoodTable)
+		// ScrollPane containing addedFoodTable)
 		JScrollPane addedFoodPane = new JScrollPane();
 		addedFoodPane.setBounds(44, 49, 325, 188);
 		addedFoodPanel.add(addedFoodPane);
 		JTable addedFoodTable = new JTable(model);
 		addedFoodPane.setViewportView(addedFoodTable);
-		
-		// (button to delete 1 food item off the table
+
+		// Button to delete 1 food item off the table
 		JButton btnDeleteFood = new JButton("Delete Food");
 		btnDeleteFood.setBounds(236, 248, 133, 29);
 		addedFoodPanel.add(btnDeleteFood);
 		btnDeleteFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
+				try {
 					int selectedRow = addedFoodTable.getSelectedRow();
-				    model.removeRow(selectedRow);
-				    }catch(Exception ex)
-				       {
-				           JOptionPane.showMessageDialog(null, ex);
-				       }
+					model.removeRow(selectedRow);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex);
+				}
 			}
 		});
-		
+
 		JButton btnCalculate = new JButton("Calculate!");
 		btnCalculate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (addedFoodTable.getRowCount() != 0) {
-					// run backend program to calculate the EF of each food item
+					// Run Calculator.java to calculate the EF of each food item
+					// Generate some form of tempResults.csv (?), which will be fed into ResultsFrame.java's calculation
+					ResultsFrame rf = new ResultsFrame();
+					rf.setVisible(true);
+					rf.setSize(800, 400);
+					rf.setTitle("Food Environmental Footprint Calculator");
+
+					// Write line to close the welcome screen after calling the CalculatorFrame
 				} else {
 					JOptionPane.showMessageDialog(contentPane, "Please select at least one food item.");
 				}
