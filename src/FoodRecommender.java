@@ -1,6 +1,11 @@
 import java.util.*;
 import java.io.*;
 
+
+/*
+ * Below code is to test if we can read data successfully from "FoodGHS.csv" and save it to Hashmap
+ */
+
 public class FoodRecommender {
 	
 	public static void main(String[] args) {
