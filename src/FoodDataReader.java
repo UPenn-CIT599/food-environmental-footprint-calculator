@@ -1,6 +1,13 @@
 import java.util.*;
 import java.io.*;
 
+/*
+ * Below code is to read data from file and save it to Hashmap
+ * Hashmap: key is food name, value is Food class
+ */
+
+
+
 public class FoodDataReader {
 	
 	private HashMap<String, Food> foodData = new HashMap<String, Food>();
