@@ -1,14 +1,25 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.*;
-import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class FoodSelectionWindow {
+public class FoodSelectionFrame extends JFrame {
 
-	private JFrame frame;
-	private JTextField textField;
+	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -17,8 +28,8 @@ public class FoodSelectionWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FoodSelectionWindow window = new FoodSelectionWindow();
-					window.frame.setVisible(true);
+					FoodSelectionFrame frame = new FoodSelectionFrame();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -27,29 +38,25 @@ public class FoodSelectionWindow {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
-	public FoodSelectionWindow() {
-		initialize();
-	}
+	public FoodSelectionFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		
-		// Configure the welcome screen of the interface window
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				
 		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca2.jpg"); // Only use absolute path for testing purpose
+		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca2.jpg"); // Only use absolute path for
+																						// testing purpose
 		Image originalImage = welcomeMascot.getImage();
-		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to fit welcomeRightPanel
-		frame.getContentPane().setLayout(null);
-		
-		
+		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
+																										// fit
+																										// welcomeRightPanel
+		this.getContentPane().setLayout(null);
+
 		// FOOD ITEMS SELECTION
 		JLabel lblFood = new JLabel("What is your food item?");
 		lblFood.setForeground(Color.WHITE);
@@ -57,17 +64,16 @@ public class FoodSelectionWindow {
 		lblFood.setFont(new Font("Apple LiGothic", Font.PLAIN, 20));
 		lblFood.setBounds(414, 171, 330, 27);
 		lblFood.setVisible(false);
-		
-		frame.getContentPane().add(lblFood);
-		
+
+		this.getContentPane().add(lblFood);
+
 		JComboBox cbFood = new JComboBox();
 		cbFood.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 13));
 		cbFood.setBounds(460, 210, 240, 27);
 		cbFood.setVisible(false);
-		
-				
-		frame.getContentPane().add(cbFood);
-		
+
+		this.getContentPane().add(cbFood);
+
 		// INPUT WEIGHT OF FOOD
 		JLabel lblWeight = new JLabel("How much of it do you eat?");
 		lblWeight.setForeground(Color.WHITE);
@@ -75,45 +81,46 @@ public class FoodSelectionWindow {
 		lblWeight.setFont(new Font("Apple LiGothic", Font.PLAIN, 20));
 		lblWeight.setBounds(414, 260, 330, 27);
 		lblWeight.setVisible(false);
-		frame.getContentPane().add(lblWeight);
-		
+		this.getContentPane().add(lblWeight);
+
 		JTextField weight = new JTextField("Enter weight of food");
 		weight.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 12));
-		weight.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE,1),BorderFactory.createEmptyBorder(5,5,5,5)));
+		weight.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		weight.setBounds(471, 303, 155, 25);
 		weight.setVisible(false);
-		frame.getContentPane().add(weight);
-		
+		this.getContentPane().add(weight);
+
 		JComboBox cbWeightUnit = new JComboBox();
 		cbWeightUnit.setBounds(628, 303, 72, 27);
 		cbWeightUnit.addItem("g");
 		cbWeightUnit.addItem("kg");
 		cbWeightUnit.setVisible(false);
-		frame.getContentPane().add(cbWeightUnit);
-		
+		this.getContentPane().add(cbWeightUnit);
+
 		// BUTTON TO RUN THE CALCULATIONS
 		JButton btnFindOut = new JButton("Find Out!");
 		btnFindOut.setBackground(new Color(255, 182, 193));
 		btnFindOut.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
 		btnFindOut.setBounds(506, 384, 145, 62);
 		btnFindOut.setVisible(false);
-		frame.getContentPane().add(btnFindOut);
-		
-		
+		this.getContentPane().add(btnFindOut);
+
 		// FOOD CATEGORY SELECTION
 		JLabel lblCategory = new JLabel("What category does your food fall under?");
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("Apple LiGothic", Font.PLAIN, 20));
 		lblCategory.setForeground(Color.WHITE);
 		lblCategory.setBounds(414, 57, 330, 48);
-		frame.getContentPane().add(lblCategory);
-		
+		this.getContentPane().add(lblCategory);
+
 		JComboBox cbFoodCategories = new JComboBox();
 		cbFoodCategories.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 13));
 		cbFoodCategories.setBounds(460, 117, 240, 27);
 		cbFoodCategories.addItem("Choose one...");
-		
-		// NOTE: Replace this portion with function that provides ArrayList of food categories
+
+		// NOTE: Replace this portion with function that provides ArrayList of food
+		// categories
 		cbFoodCategories.addItem("Cereals");
 		cbFoodCategories.addItem("Dairy");
 		cbFoodCategories.addItem("Desserts");
@@ -123,9 +130,9 @@ public class FoodSelectionWindow {
 		cbFoodCategories.addItem("Meats");
 		cbFoodCategories.addItem("Nuts");
 		cbFoodCategories.addItem("Vegetables");
-				
-		frame.getContentPane().add(cbFoodCategories);
-		
+
+		this.getContentPane().add(cbFoodCategories);
+
 		cbFoodCategories.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (!cbFoodCategories.getSelectedItem().toString().equals("Choose one...")) {
@@ -137,7 +144,7 @@ public class FoodSelectionWindow {
 						cbFood.addItem("Choose one...");
 						cbFood.addItem("Barley");
 						cbFood.addItem("Maize/corn");
-						cbFood.addItem("Oats");		
+						cbFood.addItem("Oats");
 					} else if (cbFoodCategories.getSelectedItem().equals("Dairy")) {
 						cbFood.addItem("Choose one...");
 						cbFood.addItem("Butter");
@@ -182,13 +189,13 @@ public class FoodSelectionWindow {
 						cbFood.addItem("Carrot");
 						cbFood.addItem("Spinach");
 					}
-					
+
 					cbFood.setVisible(true);
 					weight.setVisible(true);
 					lblWeight.setVisible(true);
 					cbWeightUnit.setVisible(true);
 					btnFindOut.setVisible(true);
-					
+
 				} else {
 					lblFood.setVisible(false);
 					cbFood.setVisible(false);
@@ -199,16 +206,13 @@ public class FoodSelectionWindow {
 				}
 			}
 		});
-		
 
-		
 		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
 		JLabel welcomeBackground = new JLabel("");
 		welcomeBackground.setIcon(new ImageIcon(resizedImage));
 		welcomeBackground.setBounds(0, 0, 806, 584);
-		frame.getContentPane().add(welcomeBackground);
-		
-	
-		
+		this.getContentPane().add(welcomeBackground);
+
 	}
+
 }
