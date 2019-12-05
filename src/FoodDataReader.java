@@ -1,9 +1,16 @@
 import java.util.*;
 import java.io.*;
 
+/*
+ * Below code is to read data from file and save it to Hashmap
+ * Hashmap: key is food name, value is Food class
+ */
+
+
+
 public class FoodDataReader {
 	
-	private HashMap<String, FoodDataStructure> foodData = new HashMap<String, FoodDataStructure>();
+	private HashMap<String, Food> foodData = new HashMap<String, Food>();
 	
 	public FoodDataReader(String filename) {
 		File file = new File(filename);
@@ -19,7 +26,7 @@ public class FoodDataReader {
 				int calories = Integer.parseInt(columnData[3]);
 
 				
-				FoodDataStructure data = new FoodDataStructure(category,carbonEmissions,calories);
+				Food data = new Food(category,carbonEmissions,calories);
 				foodData.put(name, data);
 
 			}
@@ -35,7 +42,7 @@ public class FoodDataReader {
 		
 	}
 	
-	public HashMap<String, FoodDataStructure> getData() {
+	public HashMap<String, Food> getData() {
 		return foodData;
 		
 	}
