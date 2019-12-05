@@ -1,7 +1,13 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -30,11 +36,73 @@ public class ResultsFrame extends JFrame {
 	 */
 	public ResultsFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+
+		// Hardcoded now, but to instantiate the variables with calculator function later
+		double weightKG = 0.5;
+		String selectedFood = "Butter";
+		double equivalentGHG = 0.4;
+
+		AnnualGHGCalculator calculator = new AnnualGHGCalculator(equivalentGHG);
+
+		// Overall description of user's GHG(eq) emissions
+		String resultsString = "<html>If you eat "+ weightKG +" kg of " + selectedFood.toLowerCase() + " everyday for one year,<br> you will contribute to <b>" + equivalentGHG + "</b> kg of CO2(eq), <br>which is equivalent to...</html>";
+		JLabel results = new JLabel(resultsString);
+		results.setBackground(Color.WHITE);
+		results.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
+		results.setBounds(35, 37, 456, 140);
+		results.setForeground(new Color(102, 205, 170));
+		this.getContentPane().add(results);
+
+		// Displays the GHG(eq) in terms of flight kilometres		
+		String flightString = "<html>... flying on a plane over <b>"+String.format("%.2f", calculator.getEquivalentFlightKM())+"</b> kilometre(s)";
+		JLabel resultsFlightKM = new JLabel(flightString);
+		resultsFlightKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		resultsFlightKM.setBounds(182, 206, 220, 70);
+		resultsFlightKM.setForeground(Color.WHITE);
+		this.getContentPane().add(resultsFlightKM);
+
+		// Displays the GHG(eq) in terms of lightbulb days
+		String lightbulbString = "<html>... powering a typical LED lightbulb for <b>"+String.format("%.2f", calculator.getEquivalentLightbulbDays())+"</b> day(s)";
+		JLabel resultsLightbulbDays = new JLabel(lightbulbString);
+		resultsLightbulbDays.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		resultsLightbulbDays.setBounds(271, 340, 220, 70);
+		resultsLightbulbDays.setForeground(Color.WHITE);
+		this.getContentPane().add(resultsLightbulbDays);
+
+		// Displays the GHG(eq) in terms of car kilometres		
+		String carString = "<html>... driving a passenger car for <b>"+String.format("%.2f", calculator.getEquivalentCarKM())+"</b> kilometre(s)";
+		JLabel resultsCarKM = new JLabel(carString);
+		resultsCarKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		resultsCarKM.setBounds(105, 452, 200, 70);
+		resultsCarKM.setForeground(Color.WHITE);
+		this.getContentPane().add(resultsCarKM);
+
+		JButton btnExploreAltFood = new JButton("Tell me more!");
+		btnExploreAltFood.setFont(new Font("Apple LiGothic", Font.BOLD, 25));
+		btnExploreAltFood.setBackground(new Color(238, 232, 170));
+		btnExploreAltFood.setForeground(Color.BLACK);
+		btnExploreAltFood.setBounds(597, 301, 150, 70);
+		this.getContentPane().add(btnExploreAltFood);
+
+
+		// Resize background image to fit window
+		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca3.jpg"); // Only use absolute path for testing purpose
+		Image originalImage = welcomeMascot.getImage();
+		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to fit welcomeRightPanel
+		this.getContentPane().setLayout(null);
+
+		JLabel backgroundImage = new JLabel("");
+		backgroundImage.setBackground(Color.WHITE);
+		backgroundImage.setForeground(Color.DARK_GRAY);
+		backgroundImage.setIcon(new ImageIcon(resizedImage));
+		backgroundImage.setBounds(0, 0, 800, 600);
+		this.getContentPane().add(backgroundImage);
+
 	}
 
 }
