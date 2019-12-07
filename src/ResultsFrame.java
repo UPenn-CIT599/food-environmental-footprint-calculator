@@ -50,11 +50,13 @@ public class ResultsFrame extends JFrame {
 		 * see the functions below
 		 */
 		UserSelection us = new UserSelection();//this should be the same userSelection object which has created last frame
-		                                         //Else it will throw null pointer exception.
+		us.setFood("beef");
+		us.setWeight(1);
+		
 		Calculator c = new Calculator();
 		double weightKG = us.getWeight();
 		String selectedFood = us.getFood();
-		double equivalentGHG = c.getFoodGHGEmission(selectedFood, weightKG);
+		double equivalentGHG = c.getFoodGHGEmission(us.getFood());
 
 		// Overall description of user's GHG(eq) emissions
 		double annualGHG = c.getAnnualGHG(equivalentGHG);

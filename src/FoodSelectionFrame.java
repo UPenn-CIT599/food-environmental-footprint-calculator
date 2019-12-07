@@ -1,17 +1,29 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class FoodSelectionFrame extends JFrame {
 
 	private JPanel contentPane;
-	private User user;
 
 	/**
 	 * Launch the application.
@@ -20,7 +32,7 @@ public class FoodSelectionFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FoodSelectionFrame frame = new FoodSelectionFrame(new Point(100,100));
+					FoodSelectionFrame frame = new FoodSelectionFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,31 +41,19 @@ public class FoodSelectionFrame extends JFrame {
 		});
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
 	/**
 	 * Create the frame.
 	 */
-	public FoodSelectionFrame(Point position) {
-		
+	public FoodSelectionFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100,100,800,600);
-		setLocation(position);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
 		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca2.jpg"); // Only use absolute path for
+		ImageIcon welcomeMascot = new ImageIcon("chewpaca2.jpg"); // Only use absolute path for
 																						// testing purpose
 		Image originalImage = welcomeMascot.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
