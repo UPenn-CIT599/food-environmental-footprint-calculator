@@ -22,13 +22,24 @@ public class ResultsFrame extends JFrame {
 	private JPanel contentPane;
 	private User user;
 
+	/**
+	 * Get the user class from FoodSelectionFrame class
+	 * 
+	 * @return the user class
+	 */
 	public User getUser() {
 		return this.user;
 	}
 
+	/**
+	 * Set the user class in the FoodSelectionFrame class
+	 * 
+	 * @param user class to be set
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	/**
 	 * Launch the application.
 	 */
