@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -10,15 +11,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.Position;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,6 +52,65 @@ public class AlternativeFoodFrame extends JFrame {
 		this.user = user;
 	}
 
+	public HashMap<String, Rectangle> getBounds(ArrayList<String> dishes) {
+		HashMap<String, Rectangle> bounds = new HashMap<>();
+
+		if (dishes.size() == 1) {
+			bounds.put("imgDishOne", new Rectangle(490, 150, 100, 100));
+			bounds.put("lblDishOne", new Rectangle(490, 260, 100, 50));
+			bounds.put("imgDishTwo", new Rectangle(490, 150, 100, 100));
+			bounds.put("lblDishTwo", new Rectangle(490, 260, 100, 50));
+			bounds.put("imgDishThree", new Rectangle(630, 150, 100, 100));
+			bounds.put("lblDishThree", new Rectangle(630, 260, 100, 50));
+		} else if (dishes.size() == 2) {
+			bounds.put("imgDishOne", new Rectangle(395, 150, 100, 100));
+			bounds.put("lblDishOne", new Rectangle(395, 260, 100, 50));
+			bounds.put("imgDishTwo", new Rectangle(585, 150, 100, 100));
+			bounds.put("lblDishTwo", new Rectangle(585, 260, 100, 50));
+			bounds.put("imgDishThree", new Rectangle(630, 150, 100, 100));
+			bounds.put("lblDishThree", new Rectangle(630, 260, 100, 50));
+		} else if (dishes.size() == 3) {
+			bounds.put("imgDishOne", new Rectangle(350, 150, 100, 100));
+			bounds.put("lblDishOne", new Rectangle(350, 260, 100, 50));
+			bounds.put("imgDishTwo", new Rectangle(490, 150, 100, 100));
+			bounds.put("lblDishTwo", new Rectangle(490, 260, 100, 50));
+			bounds.put("imgDishThree", new Rectangle(630, 150, 100, 100));
+			bounds.put("lblDishThree", new Rectangle(630, 260, 100, 50));
+		}
+		return bounds;
+	}
+	
+	/**
+	 * Generates a resized image given the dish image paths
+	 * @param dishImagePath is the image path of the selected dish
+	 * @return an Image class of the dish image of dimension 100 by 100
+	 */
+	public Image getDishImage(String dishImagePath) {
+		BufferedImage dishImage = null;
+		try {
+			URL url = getClass().getResource(dishImagePath);
+			dishImage = ImageIO.read(url);
+		} catch (Exception e) {
+			// null
+		}
+		ImageIcon dishIcon = new ImageIcon(dishImage);
+		Image originalDishImage = dishIcon.getImage();
+		Image resizedDishImage = originalDishImage.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		return resizedDishImage;
+
+	}
+	/**
+	 * Capitalises the first letter of the string
+	 * @param str is the input string to be capitalised
+	 * @return A string with the first letter capitalised
+	 */
+	public static String capitalise(String str) {
+	    if(str == null || str.isEmpty()) {
+	        return str;
+	    }
+
+	    return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -79,55 +142,30 @@ public class AlternativeFoodFrame extends JFrame {
 
 		// Generate 3 recommended food items based on user's input
 		Calculator c = new Calculator();
+		ArrayList<String> similarFoods = c.getSimilarFood(user.getFoodName().toLowerCase());
+		Collections.sort(similarFoods);
 
-		String recommendedFoodOne = c.getSimilarFood(user.getFoodName()).get(0);
+		String recommendedFoodOne = similarFoods.get(0);
 		double recommendedFoodOneGHGPerKG = c.getFoodGHGEmission(recommendedFoodOne, 1.0);
 		double recommendedFoodOneCalPerKG = c.getFoodCalories(recommendedFoodOne);
-		String recommendedFoodTwo = c.getSimilarFood(user.getFoodName()).get(1);
+		String recommendedFoodTwo = similarFoods.get(1);
 		double recommendedFoodTwoGHGPerKG = c.getFoodGHGEmission(recommendedFoodTwo, 1.0);
 		double recommendedFoodTwoCalPerKG = c.getFoodCalories(recommendedFoodTwo);
-		String recommendedFoodThree = c.getSimilarFood(user.getFoodName()).get(2);
+		String recommendedFoodThree = similarFoods.get(2);
 		double recommendedFoodThreeGHGPerKG = c.getFoodGHGEmission(recommendedFoodThree, 1.0);
 		double recommendedFoodThreeCalPerKG = c.getFoodCalories(recommendedFoodThree);
-
-		// Generate list of dishes that can be made with the first recommended food item
-		ArrayList<String> foodOneDishes = new ArrayList<>();
-		ArrayList<String> r1 = c.getDishesContainFood(user.getFoodName());
-		for (int i = 0; i < r1.size(); i++) {
-			foodOneDishes.add(r1.get(i));
-		}
-
-		// Generate list of dishes that can be made with the second recommended food item
-		ArrayList<String> foodTwoDishes = new ArrayList<>();
-		ArrayList<String> r2 = c.getDishesContainFood(user.getFoodName());
-		for (int i = 0; i < r2.size(); i++) {
-			foodTwoDishes.add(r2.get(i));
-		}
-
-		// Generate list of dishes that can be made with the third recommended food item
-		ArrayList<String> foodThreeDishes = new ArrayList<>();
-		ArrayList<String> r3 = c.getDishesContainFood(user.getFoodName());
-		for (int i = 0; i < r3.size(); i++) {
-			foodThreeDishes.add(r3.get(i));
-		}
-
-		// Put the recommended food items and their respective dishes in a HashMap
-		HashMap<String, ArrayList<String>> recommendedDishes = new HashMap<>();
-		recommendedDishes.put(recommendedFoodOne, foodOneDishes);
-		recommendedDishes.put(recommendedFoodTwo, foodTwoDishes);
-		recommendedDishes.put(recommendedFoodThree, foodThreeDishes);
 
 		// Display the first recommended dish
 		JLabel imgDishOne = new JLabel("");
 		imgDishOne.setIcon(new ImageIcon(
 				"AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
 		imgDishOne.setHorizontalAlignment(SwingConstants.CENTER);
-		imgDishOne.setBounds(350, 150, 100, 100);
+		imgDishOne.setBounds(350, 155, 100, 100);
 		contentPane.add(imgDishOne);
 		imgDishOne.setVisible(false);
 
 		JLabel lblDishOne = new JLabel("<html>dish1</html>");
-		lblDishOne.setFont(new Font("Chalkduster", Font.PLAIN, 10));
+		lblDishOne.setFont(new Font("Chalkduster", Font.PLAIN, 12));
 		lblDishOne.setForeground(Color.WHITE);
 		lblDishOne.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDishOne.setBounds(350, 260, 100, 50);
@@ -139,12 +177,12 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishTwo.setHorizontalAlignment(SwingConstants.CENTER);
 		imgDishTwo.setIcon(new ImageIcon(
 				"AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-		imgDishTwo.setBounds(490, 150, 100, 100);
+		imgDishTwo.setBounds(490, 155, 100, 100);
 		contentPane.add(imgDishTwo);
 		imgDishTwo.setVisible(false);
 
 		JLabel lblDishTwo = new JLabel("<html>dish2</html>");
-		lblDishTwo.setFont(new Font("Chalkduster", Font.PLAIN, 10));
+		lblDishTwo.setFont(new Font("Chalkduster", Font.PLAIN, 12));
 		lblDishTwo.setForeground(Color.WHITE);
 		lblDishTwo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDishTwo.setBounds(490, 260, 100, 50);
@@ -156,12 +194,12 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishThree.setHorizontalAlignment(SwingConstants.CENTER);
 		imgDishThree.setIcon(new ImageIcon(
 				"AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-		imgDishThree.setBounds(630, 150, 100, 100);
+		imgDishThree.setBounds(630, 155, 100, 100);
 		contentPane.add(imgDishThree);
 		imgDishThree.setVisible(false);
 
 		JLabel lblDishThree = new JLabel("<html>dish3</html>");
-		lblDishThree.setFont(new Font("Chalkduster", Font.PLAIN, 10));
+		lblDishThree.setFont(new Font("Chalkduster", Font.PLAIN, 12));
 		lblDishThree.setForeground(Color.WHITE);
 		lblDishThree.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDishThree.setBounds(630, 260, 100, 50);
@@ -173,42 +211,23 @@ public class AlternativeFoodFrame extends JFrame {
 		cbRecipes.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (!cbRecipes.getSelectedItem().toString().equals("Choose one...")) {
+					// Generate list of dishes that can be made with the recommended food item
+					ArrayList<String> foodDishes = new ArrayList<>();
+					foodDishes = c.getDishesContainFood(cbRecipes.getSelectedItem().toString().toLowerCase()); 
 
-					// If there is only one dish recommedation for this food
-					if (recommendedDishes.get(cbRecipes.getSelectedItem().toString()).size() == 1) {
+					// Set bounds for the dish placeholders
+					HashMap<String, Rectangle> boundsHM = getBounds(foodDishes);
+					imgDishOne.setBounds(boundsHM.get("imgDishOne"));
+					lblDishOne.setBounds(boundsHM.get("lblDishOne"));
+					imgDishTwo.setBounds(boundsHM.get("imgDishTwo"));
+					lblDishTwo.setBounds(boundsHM.get("lblDishTwo"));
+					imgDishThree.setBounds(boundsHM.get("imgDishThree"));
+					lblDishThree.setBounds(boundsHM.get("lblDishThree"));
 
-						// Set positions of placeholders for one dish
-						imgDishOne.setBounds(490, 150, 100, 100);
-						lblDishOne.setBounds(490, 260, 100, 50);
-						imgDishTwo.setBounds(490, 150, 100, 100);
-						lblDishTwo.setBounds(490, 260, 100, 50);
-						imgDishThree.setBounds(630, 150, 100, 100);
-						lblDishThree.setBounds(630, 260, 100, 50);
-
-						// First recommended food is selected
-						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
-							// LINK IMAGE PATH RESOURCE LATER
-							String imagepath = c.getDishPicPath(foodOneDishes.get(0));
-							imgDishOne.setIcon(new ImageIcon(imagepath));
-							lblDishOne.setText(foodOneDishes.get(0));
-						} 
-						
-						// Second recommended food is selected
-						else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
-							// LINK IMAGE PATH RESOURCE LATER
-							String imagepath = c.getDishPicPath(foodTwoDishes.get(1));
-							imgDishOne.setIcon(new ImageIcon(imagepath));
-							lblDishOne.setText(foodTwoDishes.get(1));
-						} 
-						
-						// Third recommended food is selected
-						else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
-							// LINK IMAGE PATH RESOURCE LATER
-							String imagepath = c.getDishPicPath(foodThreeDishes.get(2));
-							imgDishOne.setIcon(new ImageIcon(imagepath));
-							lblDishOne.setText(foodThreeDishes.get(2));
-						}
-
+					// Set visibility of placeholders based on number of dishes recommended
+					
+					// One dish is recommended
+					if (foodDishes.size() == 1) {
 						imgDishOne.setVisible(true);
 						lblDishOne.setVisible(true);
 						imgDishTwo.setVisible(false);
@@ -216,95 +235,38 @@ public class AlternativeFoodFrame extends JFrame {
 						imgDishThree.setVisible(false);
 						lblDishThree.setVisible(false);
 
-						// If there are two dish recommendations
-					} else if (recommendedDishes.get(cbRecipes.getSelectedItem().toString()).size() == 2) {
+						// Set image icons of placeholders
 
-						// Set positions of placeholders for two dishes
-						imgDishOne.setBounds(395, 150, 100, 100);
-						lblDishOne.setBounds(395, 260, 100, 50);
-						imgDishTwo.setBounds(585, 150, 100, 100);
-						lblDishTwo.setBounds(585, 260, 100, 50);
-						imgDishThree.setBounds(630, 150, 100, 100);
-						lblDishThree.setBounds(630, 260, 100, 50);
-
-						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
-							String imagepath1 = c.getDishPicPath(foodOneDishes.get(0));
-							String imagepath2 = c.getDishPicPath(foodOneDishes.get(1));
-							imgDishOne.setIcon(new ImageIcon(imagepath1));
-							imgDishTwo.setIcon(new ImageIcon(imagepath2));
-							lblDishOne.setText(foodOneDishes.get(0));
-							lblDishTwo.setText(foodOneDishes.get(1));
-
-						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
-							String imagepath1 = c.getDishPicPath(foodTwoDishes.get(0));
-							String imagepath2 = c.getDishPicPath(foodTwoDishes.get(1));
-							imgDishOne.setIcon(new ImageIcon(imagepath1));
-							imgDishTwo.setIcon(new ImageIcon(imagepath2));
-							lblDishOne.setText(foodTwoDishes.get(0));
-							lblDishTwo.setText(foodTwoDishes.get(1));
-
-						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
-							String imagepath1 = c.getDishPicPath(foodThreeDishes.get(0));
-							String imagepath2 = c.getDishPicPath(foodThreeDishes.get(1));
-							imgDishOne.setIcon(new ImageIcon(imagepath1));
-							imgDishTwo.setIcon(new ImageIcon(imagepath2));
-							lblDishOne.setText(foodThreeDishes.get(0));
-							lblDishTwo.setText(foodThreeDishes.get(1));
-						}
-
+						// Image 1
+						Image imageOne = getDishImage(c.getDishPicPath(foodDishes.get(0)));
+						imgDishOne.setIcon(new ImageIcon(imageOne));
+						lblDishOne.setText("<html>"+capitalise(foodDishes.get(0))+"</html>");
+					} 
+					
+					// Two dishes are recommended	
+					else if (foodDishes.size() == 2) {
 						imgDishOne.setVisible(true);
 						lblDishOne.setVisible(true);
 						imgDishTwo.setVisible(true);
 						lblDishTwo.setVisible(true);
 						imgDishThree.setVisible(false);
 						lblDishThree.setVisible(false);
-	
+
+						// Set image icons of placeholders
+
+						// Image 1
+						Image imageOne = getDishImage(c.getDishPicPath(foodDishes.get(0)));
+						imgDishOne.setIcon(new ImageIcon(imageOne));
+						lblDishOne.setText("<html>"+capitalise(foodDishes.get(0))+"</html>");
+
+						// Image 2
+						Image imageTwo = getDishImage(c.getDishPicPath(foodDishes.get(1)));
+						imgDishTwo.setIcon(new ImageIcon(imageTwo));
+						lblDishTwo.setText("<html>"+capitalise(foodDishes.get(1))+"</html>");
+
 					} 
-					// If there are three dish recommendations
-					else if (recommendedDishes.get(cbRecipes.getSelectedItem().toString()).size() == 3) {
-
-						// Set positions of placeholders for three dishes
-						imgDishOne.setBounds(350, 150, 100, 100);
-						lblDishOne.setBounds(350, 260, 100, 50);
-						imgDishTwo.setBounds(490, 150, 100, 100);
-						lblDishTwo.setBounds(490, 260, 100, 50);
-						imgDishThree.setBounds(630, 150, 100, 100);
-						lblDishThree.setBounds(630, 260, 100, 50);
-
-						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
-							String imagepath1 = c.getDishPicPath(foodOneDishes.get(0));
-							String imagepath2 = c.getDishPicPath(foodOneDishes.get(1));
-							String imagepath3 = c.getDishPicPath(foodOneDishes.get(2));
-							imgDishOne.setIcon(new ImageIcon(imagepath1));
-							imgDishTwo.setIcon(new ImageIcon(imagepath2));
-							imgDishOne.setIcon(new ImageIcon(imagepath3));
-							lblDishOne.setText(foodOneDishes.get(0));
-							lblDishTwo.setText(foodOneDishes.get(1));
-							lblDishTwo.setText(foodOneDishes.get(2));
-
-						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
-							String imagepath1 = c.getDishPicPath(foodTwoDishes.get(0));
-							String imagepath2 = c.getDishPicPath(foodTwoDishes.get(1));
-							String imagepath3 = c.getDishPicPath(foodTwoDishes.get(2));
-							imgDishOne.setIcon(new ImageIcon(imagepath1));
-							imgDishTwo.setIcon(new ImageIcon(imagepath2));
-							imgDishOne.setIcon(new ImageIcon(imagepath3));
-							lblDishOne.setText(foodTwoDishes.get(0));
-							lblDishTwo.setText(foodTwoDishes.get(1));
-							lblDishTwo.setText(foodTwoDishes.get(2));
-
-						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
-							String imagepath1 = c.getDishPicPath(foodThreeDishes.get(0));
-							String imagepath2 = c.getDishPicPath(foodThreeDishes.get(1));
-							String imagepath3 = c.getDishPicPath(foodThreeDishes.get(2));
-							imgDishOne.setIcon(new ImageIcon(imagepath1));
-							imgDishTwo.setIcon(new ImageIcon(imagepath2));
-							imgDishOne.setIcon(new ImageIcon(imagepath3));
-							lblDishOne.setText(foodThreeDishes.get(0));
-							lblDishTwo.setText(foodThreeDishes.get(1));
-							lblDishTwo.setText(foodThreeDishes.get(2));
-						}
-
+					// Three dishes are recommended
+					else if (foodDishes.size() == 3) {
 						imgDishOne.setVisible(true);
 						lblDishOne.setVisible(true);
 						imgDishTwo.setVisible(true);
@@ -312,18 +274,33 @@ public class AlternativeFoodFrame extends JFrame {
 						imgDishThree.setVisible(true);
 						lblDishThree.setVisible(true);
 
+						// Set image icons of placeholders
+
+						// Image 1
+						Image imageOne = getDishImage(c.getDishPicPath(foodDishes.get(0)));
+						imgDishOne.setIcon(new ImageIcon(imageOne));
+						lblDishOne.setText("<html>"+capitalise(foodDishes.get(0))+"</html>");
+
+						// Image 2
+						Image imageTwo = getDishImage(c.getDishPicPath(foodDishes.get(1)));
+						imgDishTwo.setIcon(new ImageIcon(imageTwo));
+						lblDishTwo.setText("<html>"+capitalise(foodDishes.get(1))+"</html>");
+						
+						// Image 3
+						Image imageThree = getDishImage(c.getDishPicPath(foodDishes.get(2)));
+						imgDishThree.setIcon(new ImageIcon(imageThree));
+						lblDishThree.setText("<html>"+capitalise(foodDishes.get(2))+"</html>");
+
 					}
-
 				}
-
 			}
 		});
 		cbRecipes.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 13));
-		cbRecipes.setBounds(461, 97, 156, 27);
+		cbRecipes.setBounds(463, 111, 156, 27);
 		cbRecipes.addItem("Choose one...");
-		cbRecipes.addItem(recommendedFoodOne);
-		cbRecipes.addItem(recommendedFoodTwo);
-		cbRecipes.addItem(recommendedFoodThree);
+		cbRecipes.addItem(capitalise(recommendedFoodOne));
+		cbRecipes.addItem(capitalise(recommendedFoodTwo));
+		cbRecipes.addItem(capitalise(recommendedFoodThree));
 
 		contentPane.add(cbRecipes);
 
@@ -397,7 +374,7 @@ public class AlternativeFoodFrame extends JFrame {
 		contentPane.add(lblFoodThreeMetrices);
 
 		JButton btnEmailResults = new JButton("Email Results");
-		btnEmailResults.setBackground(new Color(30, 144, 255));
+		btnEmailResults.setBackground(new Color(72, 209, 204));
 		btnEmailResults.setOpaque(true);
 		btnEmailResults.setBounds(90, 450, 120, 30);
 		contentPane.add(btnEmailResults);
@@ -417,30 +394,34 @@ public class AlternativeFoodFrame extends JFrame {
 		});
 
 		JButton btnTryAgain = new JButton("Try Again");
+		btnTryAgain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Point position = getLocation();
+				FoodSelectionFrame fsf = new FoodSelectionFrame(position,user);
+				fsf.setVisible(true);
+				setVisible(false);
+				dispose();
+			}
+		});
 		btnTryAgain.setBackground(new Color(102, 205, 170));
 		btnTryAgain.setOpaque(true);
-		btnTryAgain.setBounds(90, 510, 120, 30);
+		btnTryAgain.setBounds(90, 488, 120, 30);
 		contentPane.add(btnTryAgain);
 
-		// Import background image
-		BufferedImage backgroundImage = null;
-		String fileName = "altFood.jpg";
-		try {
-			URL url = getClass().getResource(fileName);
-			backgroundImage = ImageIO.read(url);
-		} catch (Exception e2) {
-			// null
-		}
-		ImageIcon icon = new ImageIcon(backgroundImage);
+		// Import image from src folder
+		String fileName = "chewpaca4.jpg";
+
+		// Resize image to fit window's resolution
+		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
-		JLabel welcomeBackground = new JLabel("");
-		welcomeBackground.setBackground(Color.WHITE);
-		welcomeBackground.setForeground(Color.DARK_GRAY);
-		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 800, 600);
-		this.getContentPane().add(welcomeBackground);
+		JLabel background = new JLabel("");
+		background.setBackground(Color.WHITE);
+		background.setForeground(Color.DARK_GRAY);
+		background.setIcon(new ImageIcon(resizedImage));
+		background.setBounds(0, 0, 800, 600);
+		this.getContentPane().add(background);
 
 	}
 }

@@ -39,7 +39,7 @@ public class ResultsFrame extends JFrame {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +47,7 @@ public class ResultsFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResultsFrame frame = new ResultsFrame(new Point(100,100), new User("",""));
+					ResultsFrame frame = new ResultsFrame(new Point(100, 100), new User("", ""));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,7 +77,9 @@ public class ResultsFrame extends JFrame {
 
 		// Overall description of user's GHG(eq) emissions
 		double annualGHG = c.getAnnualGHG(equivalentGHG);
-		String resultsString = "<html>If you eat "+ String.format("%.2f", weightKG) +" kg of " + selectedFood.toLowerCase() + " everyday for one year,<br> you will contribute to <b>" + String.format("%.2f", equivalentGHG) + "</b> kg of CO2(eq), <br>which is equivalent to...</html>";
+		String resultsString = "<html>If you eat " + String.format("%.2f", weightKG) + " kg of "
+				+ selectedFood.toLowerCase() + " everyday for one year,<br> you will contribute to <b>"
+				+ String.format("%.2f", equivalentGHG) + "</b> kg of CO2(eq), <br>which is equivalent to...</html>";
 		JLabel results = new JLabel(resultsString);
 		results.setBackground(Color.WHITE);
 		results.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
@@ -85,8 +87,9 @@ public class ResultsFrame extends JFrame {
 		results.setForeground(new Color(102, 205, 170));
 		this.getContentPane().add(results);
 
-		// Displays the GHG(eq) in terms of flight kilometres		
-		String flightString = "<html>... flying on a plane over <b>"+String.format("%.0f", c.getEquivalentFlightKM(annualGHG))+"</b> kilometre(s)";
+		// Displays the GHG(eq) in terms of flight kilometres
+		String flightString = "<html>... flying on a plane over <b>"
+				+ String.format("%.0f", c.getEquivalentFlightKM(annualGHG)) + "</b> kilometre(s)";
 		JLabel resultsFlightKM = new JLabel(flightString);
 		resultsFlightKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resultsFlightKM.setBounds(182, 206, 220, 70);
@@ -94,15 +97,17 @@ public class ResultsFrame extends JFrame {
 		this.getContentPane().add(resultsFlightKM);
 
 		// Displays the GHG(eq) in terms of lightbulb days
-		String lightbulbString = "<html>... powering a typical LED lightbulb for <b>"+String.format("%.0f", c.getEquivalentBulbLightDays(annualGHG))+"</b> day(s)";
+		String lightbulbString = "<html>... powering a typical LED lightbulb for <b>"
+				+ String.format("%.0f", c.getEquivalentBulbLightDays(annualGHG)) + "</b> day(s)";
 		JLabel resultsLightbulbDays = new JLabel(lightbulbString);
 		resultsLightbulbDays.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resultsLightbulbDays.setBounds(271, 340, 220, 70);
 		resultsLightbulbDays.setForeground(Color.WHITE);
 		this.getContentPane().add(resultsLightbulbDays);
 
-		// Displays the GHG(eq) in terms of car kilometres		
-		String carString = "<html>... driving a passenger car for <b>"+String.format("%.0f", c.getCarKMEquivalent(annualGHG))+"</b> kilometre(s)";
+		// Displays the GHG(eq) in terms of car kilometres
+		String carString = "<html>... driving a passenger car for <b>"
+				+ String.format("%.0f", c.getCarKMEquivalent(annualGHG)) + "</b> kilometre(s)";
 		JLabel resultsCarKM = new JLabel(carString);
 		resultsCarKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resultsCarKM.setBounds(105, 452, 200, 70);
@@ -126,16 +131,11 @@ public class ResultsFrame extends JFrame {
 			}
 		});
 
-		// Import background image
-		BufferedImage backgroundImage = null;
+		// Import image from src folder
 		String fileName = "chewpaca3.jpg";
-		try {
-			URL url = getClass().getResource(fileName);
-			backgroundImage = ImageIO.read(url);
-		} catch (Exception e2) {
-			// null
-		}
-		ImageIcon icon = new ImageIcon(backgroundImage);
+
+		// Resize image to fit window's resolution
+		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 

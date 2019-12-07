@@ -11,6 +11,7 @@ import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -62,6 +63,19 @@ public class FoodSelectionFrame extends JFrame {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	/**
+	 * Capitalises the first letter of the string
+	 * @param str is the input string to be capitalised
+	 * @return A string with the first letter capitalised
+	 */
+	public static String capitalise(String str) {
+	    if(str == null || str.isEmpty()) {
+	        return str;
+	    }
+
+	    return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 
 	/**
@@ -117,7 +131,8 @@ public class FoodSelectionFrame extends JFrame {
 		cbWeightUnit.setVisible(false);
 		this.getContentPane().add(cbWeightUnit);
 
-		// Button to run calculations based on user inputs, and move to next frame (ResultsFrame)
+		// Button to run calculations based on user inputs, and move to next frame
+		// (ResultsFrame)
 		JButton btnFindOut = new JButton("Find Out!");
 		btnFindOut.setBackground(new Color(255, 182, 193));
 		btnFindOut.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
@@ -142,6 +157,7 @@ public class FoodSelectionFrame extends JFrame {
 						ResultsFrame frame3 = new ResultsFrame(position, user);
 						frame3.setVisible(true);
 						setVisible(false);
+						dispose();
 					}
 					// If no food item has been selected, prompt user to choose food
 					else {
@@ -174,29 +190,33 @@ public class FoodSelectionFrame extends JFrame {
 		cbFoodCategories.addItem("Choose one...");
 
 		// Add category types to Food Categories ComboBox from input csv
-		for (String s : new Calculator().generalGroupSelect(new FoodDataReader("FoodGHG.csv"))) {
-			cbFoodCategories.addItem(s);
+		Calculator c = new Calculator();
+		ArrayList<String> categories = c.generalGroupSelect(new FoodDataReader("FoodGHG.csv"));
+		Collections.sort(categories);
+		for (String category : categories) {
+			cbFoodCategories.addItem(capitalise(category));
 		}
 		this.getContentPane().add(cbFoodCategories);
 
 		// Check user's selection of food category
 		cbFoodCategories.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				
+
 				// User has selected a food category
 				if (!cbFoodCategories.getSelectedItem().toString().equals("Choose one...")) {
 					lblFood.setVisible(true);
 					cbFood.removeAllItems();
+
+					// Add food items to Food ComboBox from input csv, based on the selected food
+					// category
 					
-					// Add food items to Food ComboBox from input csv, based on the selected food category
-					Calculator c = new Calculator();
-					ArrayList<String> s = c.generalGroupSelect(new FoodDataReader("FoodGHG.csv"));
 					cbFood.addItem("Choose one...");
-					for (int i = 0; i < s.size(); i++) {
-						if (cbFoodCategories.getSelectedItem().equals(s.get(i))) {
-							ArrayList<String> a = c.foodGroupSelect(s.get(i));
-							for (int j = 0; j < a.size(); j++) {
-								cbFood.addItem(a.get(j));
+					for (int i = 0; i < categories.size(); i++) {
+						if (cbFoodCategories.getSelectedItem().equals(capitalise(categories.get(i)))) {
+							ArrayList<String> foodItems = c.foodGroupSelect(categories.get(i));
+							Collections.sort(foodItems);
+							for (int j = 0; j < foodItems.size(); j++) {
+								cbFood.addItem(capitalise(foodItems.get(j)));
 							}
 						}
 					}
@@ -216,17 +236,12 @@ public class FoodSelectionFrame extends JFrame {
 				}
 			}
 		});
-		
-		// Import background image
-		BufferedImage backgroundImage = null;
+
+		// Import image from src folder
 		String fileName = "chewpaca2.jpg";
-		try {
-			URL url = getClass().getResource(fileName);
-			backgroundImage = ImageIO.read(url);
-		} catch (Exception e2) {
-			// null
-		}
-		ImageIcon icon = new ImageIcon(backgroundImage);
+
+		// Resize image to fit window's resolution
+		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
@@ -236,6 +251,7 @@ public class FoodSelectionFrame extends JFrame {
 		background.setIcon(new ImageIcon(resizedImage));
 		background.setBounds(0, 0, 800, 600);
 		this.getContentPane().add(background);
+
 	}
 
 }

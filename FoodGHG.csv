@@ -1,5 +1,5 @@
 Name,Food Group,Greenhouse gas emissions per kilogram (kgCO2-eq/kg),Calories per kilogram or 1000ml
-Almond/coconut milk,Dairy,0.42,264
+Almond milk,Dairy,0.42,264
 Apples,Fruit,0.29,590
 Apricot,Fruit,0.43,460
 Artichokes,Vegetable,0.48,588
@@ -33,7 +33,7 @@ Eggplants,Vegetable,1.35,217
 Eggs,Meat,3.46,1460
 Fennel,Vegetable,0.48,220
 Garlic,Vegetable,0.57,1000
-Grapefruit and pomelo,Fruit,0.51,320
+Grapefruit,Fruit,0.51,320
 Grapes,Fruit,0.37,620
 Guavas,Fruit,0.28,300
 Haddock,Fish,3.41,740
@@ -41,7 +41,7 @@ Hazelnuts,Nuts,0.97,6430
 Herring,Fish,1.16,2010
 Kiwi fruit,Fruit,0.36,390
 Lamb,Meat,25.58,2690
-Lemons and limes,Fruit,0.26,270
+Lemons,Fruit,0.26,270
 Lentils,Vegetable,1.03,2870
 Lettuce,Vegetable,3.7,150
 Lobster,Fish,27.8,1000
