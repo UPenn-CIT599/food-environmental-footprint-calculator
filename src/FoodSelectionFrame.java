@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -20,6 +22,8 @@ import javax.swing.border.EmptyBorder;
 public class FoodSelectionFrame extends JFrame {
 
 	private JPanel contentPane;
+	private String userName;
+	private String userEmail;
 
 	/**
 	 * Launch the application.
@@ -28,7 +32,7 @@ public class FoodSelectionFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FoodSelectionFrame frame = new FoodSelectionFrame();
+					FoodSelectionFrame frame = new FoodSelectionFrame(new Point(100,100));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,13 +40,22 @@ public class FoodSelectionFrame extends JFrame {
 			}
 		});
 	}
+	
+	public void setUserName(String name) {
+		this.userName = name;
+	}
+	
+	public void setUserEmail(String email) {
+		this.userEmail = email;
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public FoodSelectionFrame() {
+	public FoodSelectionFrame(Point position) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100,100,800,600);
+		setLocation(position);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

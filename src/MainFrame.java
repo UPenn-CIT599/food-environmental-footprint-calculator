@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,10 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
-public class WelcomeFrame extends JFrame {
+public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
+
 
 	/**
 	 * Launch the application.
@@ -28,7 +32,7 @@ public class WelcomeFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WelcomeFrame frame = new WelcomeFrame();
+					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,10 +41,11 @@ public class WelcomeFrame extends JFrame {
 		});
 	}
 
+
 	/**
 	 * Create the frame.
 	 */
-	public WelcomeFrame() {
+	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -90,37 +95,44 @@ public class WelcomeFrame extends JFrame {
 		this.getContentPane().add(introChewpaca);
 
 		// Input fields for user's name and email address
-		JTextField userName = new JTextField("Name");
-		userName.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
-		userName.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
+		JTextField txtUserName = new JTextField("Name");
+		txtUserName.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
+		txtUserName.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		userName.setBounds(123, 383, 255, 26);
-		this.getContentPane().add(userName);
+		txtUserName.setBounds(123, 383, 255, 26);
+		this.getContentPane().add(txtUserName);
 
-		JTextField userEmail = new JTextField("Email");
-		userEmail.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
-		userEmail.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
+		JTextField txtUserEmail = new JTextField("Email");
+		txtUserEmail.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
+		txtUserEmail.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		userEmail.setBounds(123, 418, 255, 26);
-		this.getContentPane().add(userEmail);
+		txtUserEmail.setBounds(123, 418, 255, 26);
+		this.getContentPane().add(txtUserEmail);
+	
 
 		// Button to move to next frame, if users input information correctly
 		JButton letsGo = new JButton("Let's go!");
 		letsGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!userName.getText().equals("Name") && !userName.getText().contentEquals("")
-						&& !userEmail.getText().equals("Email") && !userEmail.getText().equals("")) {
-					User user = new User(userName.getText(), userEmail.getText());
-
+				// Start second frame
+				if (!txtUserName.getText().equals("Name")&&!txtUserName.getText().equals("")&&!txtUserEmail.getText().equals("Email")&&!txtUserEmail.getText().equals("")){
+					Point position = getLocation();
+					FoodSelectionFrame frame2 = new FoodSelectionFrame(position);
+					frame2.setVisible(true);
+					frame2.setUserName(txtUserName.getText());
+					frame2.setUserEmail(txtUserEmail.getText());
+					
+					dispose();
 				} else {
-					JOptionPane.showMessageDialog(null, "Don't be shy! Tell me your name and email.");
+					JOptionPane.showMessageDialog(null, "Don't be shy, tell me your name and email!");
 				}
 			}
+				
 		});
 		letsGo.setBackground(new Color(255, 182, 193));
 		letsGo.setFont(new Font("Apple LiGothic", Font.PLAIN, 30));
 		letsGo.setBounds(199, 456, 117, 61);
-		this.getContentPane().add(letsGo);
+		getContentPane().add(letsGo);
 
 		// Small credits to ourselves
 		JLabel teamName1 = new JLabel(
@@ -138,6 +150,8 @@ public class WelcomeFrame extends JFrame {
 		welcomeBackground.setBounds(0, 0, 800, 578);
 		this.getContentPane().add(welcomeBackground);
 
+
+		
 	}
 
 }
