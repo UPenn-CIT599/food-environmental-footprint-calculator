@@ -15,6 +15,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ItemEvent;
+import javax.swing.JButton;
 
 public class AlternativeFoodFrame extends JFrame {
 
@@ -349,12 +350,31 @@ public class AlternativeFoodFrame extends JFrame {
 		lblFoodThreeMetrices.setBounds(42, 380, 248, 51);
 		contentPane.add(lblFoodThreeMetrices);
 		
-
+		JButton btnEmailResults = new JButton("Email Results");
+		btnEmailResults.setBackground(new Color(30, 144, 255));
+		btnEmailResults.setOpaque(true);
+		btnEmailResults.setBounds(90, 450, 120, 30);
+		contentPane.add(btnEmailResults);
+		
+		JButton btnDownloadPDF = new JButton("Download PDF");
+		btnDownloadPDF.setBackground(new Color(0, 191, 255));
+		btnDownloadPDF.setOpaque(true);
+		btnDownloadPDF.setBounds(90, 480, 120, 30);
+		contentPane.add(btnDownloadPDF);
+		
+		JButton btnTryAgain = new JButton("Try Again");
+		btnTryAgain.setBackground(new Color(102, 205, 170));
+		btnTryAgain.setOpaque(true);
+		btnTryAgain.setBounds(90, 510, 120, 30);
+		contentPane.add(btnTryAgain);
+		
 		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
 		JLabel welcomeBackground = new JLabel("");
 		welcomeBackground.setIcon(new ImageIcon(resizedImage));
 		welcomeBackground.setBounds(0, 0, 806, 584);
 		this.getContentPane().add(welcomeBackground);
+		
+		
 		
 
 
