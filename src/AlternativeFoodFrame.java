@@ -30,10 +30,20 @@ public class AlternativeFoodFrame extends JFrame {
 	private JPanel contentPane;
 	private User user;
 
+	/**
+	 * Get the user class from FoodSelectionFrame class
+	 * 
+	 * @return the user class
+	 */
 	public User getUser() {
 		return this.user;
 	}
 
+	/**
+	 * Set the user class in the FoodSelectionFrame class
+	 * 
+	 * @param user class to be set
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -67,6 +77,7 @@ public class AlternativeFoodFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// Generate 3 recommended food items based on user's input
 		Calculator c = new Calculator();
 
 		String recommendedFoodOne = c.getSimilarFood(user.getFoodName()).get(0);
@@ -79,30 +90,34 @@ public class AlternativeFoodFrame extends JFrame {
 		double recommendedFoodThreeGHGPerKG = c.getFoodGHGEmission(recommendedFoodThree, 1.0);
 		double recommendedFoodThreeCalPerKG = c.getFoodCalories(recommendedFoodThree);
 
+		// Generate list of dishes that can be made with the first recommended food item
 		ArrayList<String> foodOneDishes = new ArrayList<>();
 		ArrayList<String> r1 = c.getDishesContainFood(user.getFoodName());
 		for (int i = 0; i < r1.size(); i++) {
 			foodOneDishes.add(r1.get(i));
 		}
 
+		// Generate list of dishes that can be made with the second recommended food item
 		ArrayList<String> foodTwoDishes = new ArrayList<>();
 		ArrayList<String> r2 = c.getDishesContainFood(user.getFoodName());
 		for (int i = 0; i < r2.size(); i++) {
-			foodOneDishes.add(r2.get(i));
+			foodTwoDishes.add(r2.get(i));
 		}
 
+		// Generate list of dishes that can be made with the third recommended food item
 		ArrayList<String> foodThreeDishes = new ArrayList<>();
 		ArrayList<String> r3 = c.getDishesContainFood(user.getFoodName());
 		for (int i = 0; i < r3.size(); i++) {
-			foodOneDishes.add(r3.get(i));
+			foodThreeDishes.add(r3.get(i));
 		}
 
+		// Put the recommended food items and their respective dishes in a HashMap
 		HashMap<String, ArrayList<String>> recommendedDishes = new HashMap<>();
 		recommendedDishes.put(recommendedFoodOne, foodOneDishes);
 		recommendedDishes.put(recommendedFoodTwo, foodTwoDishes);
 		recommendedDishes.put(recommendedFoodThree, foodThreeDishes);
 
-		// Recommended dish #1
+		// Display the first recommended dish
 		JLabel imgDishOne = new JLabel("");
 		imgDishOne.setIcon(new ImageIcon(
 				"AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
@@ -119,7 +134,7 @@ public class AlternativeFoodFrame extends JFrame {
 		contentPane.add(lblDishOne);
 		lblDishOne.setVisible(false);
 
-		// Recommended dish #2
+		// // Display the second recommended dish
 		JLabel imgDishTwo = new JLabel("");
 		imgDishTwo.setHorizontalAlignment(SwingConstants.CENTER);
 		imgDishTwo.setIcon(new ImageIcon(
@@ -129,7 +144,6 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishTwo.setVisible(false);
 
 		JLabel lblDishTwo = new JLabel("<html>dish2</html>");
-		;
 		lblDishTwo.setFont(new Font("Chalkduster", Font.PLAIN, 10));
 		lblDishTwo.setForeground(Color.WHITE);
 		lblDishTwo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,7 +151,7 @@ public class AlternativeFoodFrame extends JFrame {
 		contentPane.add(lblDishTwo);
 		lblDishTwo.setVisible(false);
 
-		// Recommended dish #3
+		// Display the third recommended dish
 		JLabel imgDishThree = new JLabel("");
 		imgDishThree.setHorizontalAlignment(SwingConstants.CENTER);
 		imgDishThree.setIcon(new ImageIcon(
@@ -147,7 +161,6 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishThree.setVisible(false);
 
 		JLabel lblDishThree = new JLabel("<html>dish3</html>");
-		;
 		lblDishThree.setFont(new Font("Chalkduster", Font.PLAIN, 10));
 		lblDishThree.setForeground(Color.WHITE);
 		lblDishThree.setHorizontalAlignment(SwingConstants.CENTER);
@@ -155,13 +168,13 @@ public class AlternativeFoodFrame extends JFrame {
 		contentPane.add(lblDishThree);
 		lblDishThree.setVisible(false);
 
-		// Combobox to select recommended food
+		// Combobox to select recommended food, in order to display dishes for the food
 		JComboBox cbRecipes = new JComboBox();
 		cbRecipes.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (!cbRecipes.getSelectedItem().toString().equals("Choose one...")) {
 
-					// If there is only one dish recommedation
+					// If there is only one dish recommedation for this food
 					if (recommendedDishes.get(cbRecipes.getSelectedItem().toString()).size() == 1) {
 
 						// Set positions of placeholders for one dish
@@ -171,30 +184,29 @@ public class AlternativeFoodFrame extends JFrame {
 						lblDishTwo.setBounds(490, 260, 100, 50);
 						imgDishThree.setBounds(630, 150, 100, 100);
 						lblDishThree.setBounds(630, 260, 100, 50);
-						/**
-						 * @author Xiaolu replaced hard codes with method below
-						 * 
-						 */
+
+						// First recommended food is selected
 						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
-							// Use method to select corresponding dish images
+							// LINK IMAGE PATH RESOURCE LATER
 							String imagepath = c.getDishPicPath(foodOneDishes.get(0));
 							imgDishOne.setIcon(new ImageIcon(imagepath));
-							// Use method to select corresponding dish names
 							lblDishOne.setText(foodOneDishes.get(0));
-
-						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
-							// Use method to select corresponding dish images
-							String imagepath = c.getDishPicPath(foodTwoDishes.get(0));
+						} 
+						
+						// Second recommended food is selected
+						else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
+							// LINK IMAGE PATH RESOURCE LATER
+							String imagepath = c.getDishPicPath(foodTwoDishes.get(1));
 							imgDishOne.setIcon(new ImageIcon(imagepath));
-							// Use method to select corresponding dish names
-							lblDishOne.setText(foodTwoDishes.get(0));
-
-						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
-							// Use method to select corresponding dish images
-							String imagepath = c.getDishPicPath(foodThreeDishes.get(0));
+							lblDishOne.setText(foodTwoDishes.get(1));
+						} 
+						
+						// Third recommended food is selected
+						else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
+							// LINK IMAGE PATH RESOURCE LATER
+							String imagepath = c.getDishPicPath(foodThreeDishes.get(2));
 							imgDishOne.setIcon(new ImageIcon(imagepath));
-							// Use method to select corresponding dish names
-							lblDishOne.setText(foodThreeDishes.get(0));
+							lblDishOne.setText(foodThreeDishes.get(2));
 						}
 
 						imgDishOne.setVisible(true);
@@ -246,9 +258,10 @@ public class AlternativeFoodFrame extends JFrame {
 						lblDishTwo.setVisible(true);
 						imgDishThree.setVisible(false);
 						lblDishThree.setVisible(false);
-
-						// If there are three dish recommendations
-					} else if (recommendedDishes.get(cbRecipes.getSelectedItem().toString()).size() == 3) {
+	
+					} 
+					// If there are three dish recommendations
+					else if (recommendedDishes.get(cbRecipes.getSelectedItem().toString()).size() == 3) {
 
 						// Set positions of placeholders for three dishes
 						imgDishOne.setBounds(350, 150, 100, 100);
