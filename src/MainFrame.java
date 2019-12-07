@@ -45,6 +45,16 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+
+		// Create fonts DO LATER
+		/**
+		 * InputStream is = MainFrame.class.getResourceAsStream("TestFont.ttf"); Font
+		 * font = Font.createFont(Font.TRUETYPE_FONT, is); This loaded font has no
+		 * predefined font settings so to use, you would have to do:
+		 * 
+		 * Font sizedFont = font.deriveFont(12f); myLabel.setFont(sizedFont);
+		 **/
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -105,7 +115,7 @@ public class MainFrame extends JFrame {
 		// Button to move to the next frame (FoodSelectionFrame)
 		JButton letsGo = new JButton("Let's go!");
 		letsGo.setBackground(new Color(255, 182, 193));
-		letsGo.setFont(new Font("Arial", Font.PLAIN, 25));
+		letsGo.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
 		letsGo.setBounds(199, 456, 117, 61);
 		getContentPane().add(letsGo);
 		letsGo.addActionListener(new ActionListener() {
@@ -119,6 +129,7 @@ public class MainFrame extends JFrame {
 					FoodSelectionFrame frame2 = new FoodSelectionFrame(position, user);
 					frame2.setVisible(true);
 					setVisible(false);
+					dispose();
 				}
 				// Pop-up dialog if user did not input name and email
 				else {
@@ -139,17 +150,10 @@ public class MainFrame extends JFrame {
 		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
 
 		// Import image from src folder
-		BufferedImage backgroundImage = null;
 		String fileName = "chewpaca1.jpg";
-		try {
-			URL url = getClass().getResource(fileName);
-			backgroundImage = ImageIO.read(url);
-		} catch (Exception e2) {
-			// null
-		}
 
 		// Resize image to fit window's resolution
-		ImageIcon icon = new ImageIcon(backgroundImage);
+		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
