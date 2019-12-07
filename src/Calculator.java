@@ -6,14 +6,13 @@ import java.util.Random;
 public class Calculator {
 	/**
 	 * 
-	 * @param the user input food name and kg
+	 * @param the user input food name 
 	 * @return GHG Emission of selected food
 	 */
-	public double getFoodGHGEmission(String name, double weight){
-		HashMap<String,Food> readData = new FoodDataReader ("FoodGHS.csv").getData();
-		double unitWeight = readData.get(name).getCarbonEmissions();
-		double totalEmission = unitWeight * weight;
-		return totalEmission;
+	public double getFoodGHGEmission(String name){
+		HashMap<String,Food> readData = new FoodDataReader ("FoodGHG.csv").getData();
+		double emission = readData.get(name).getCarbonEmissions();
+		return emission;
 	}
 	
 	/**
@@ -21,11 +20,10 @@ public class Calculator {
 	 * @param the user input food name and kg
 	 * @return Calories of selected food
 	 */
-	public double getFoodCalories(String name, double weight){
-		HashMap<String,Food> readData = new FoodDataReader ("FoodGHS.csv").getData();
+	public double getFoodCalories(String name){
+		HashMap<String,Food> readData = new FoodDataReader ("FoodGHG.csv").getData();
 		double unitCalories = readData.get(name).getCalories();
-		double totalCalories = unitCalories * weight;
-		return totalCalories;
+		return unitCalories;
 	}
 	/**
 	 * 
@@ -66,7 +64,38 @@ public class Calculator {
 		double flightKM = AnnualGHG/0.186;
 		return flightKM;
 	}
-
+	/**
+	 * 
+	 * @param foodDataReader
+	 * @return the general food group (fish, meat, etc.,)
+	 */
+	public ArrayList<String> generalGroupSelect(FoodDataReader foodDataReader){
+		ArrayList<String> foodgroup = new ArrayList<String>();
+		HashMap<String,Food> readData = new FoodDataReader ("FoodGHG.csv").getData();
+		for(String key: readData.keySet()) {
+			String group0 = readData.get(key).getCategory();
+			if(!foodgroup.contains(group0)) {
+				foodgroup.add(group0);
+			}	
+		}
+		return foodgroup;	
+	}
+	/**
+	 * 
+	 * @param foodgroup
+	 * @return food under each group(e.g. milk, chocolate...under dairy.)
+	 */
+	public ArrayList<String> foodGroupSelect(String foodgroup){
+		ArrayList<String> foodlist = new ArrayList<String>();
+		HashMap<String,Food> readData = new FoodDataReader ("FoodGHG.csv").getData();
+		for(String key: readData.keySet()) {
+			if(readData.get(key).getCategory().equals(foodgroup)) {
+				foodlist.add(key);		
+			}	
+		}
+		System.out.println(foodlist);
+		return foodlist;
+	}
 
 //	/**
 //	 * 
@@ -146,7 +175,7 @@ public class Calculator {
 	 */
 	public ArrayList<String> getSimilarFood(String name){
 		ArrayList<String> similarfood = new ArrayList<String>();
-		HashMap<String,Food> readData = new FoodDataReader ("FoodGHS.csv").getData();
+		HashMap<String,Food> readData = new FoodDataReader ("FoodGHG.csv").getData();
 		String selectedFoodCategory = readData.get(name).getCategory();
 		HashMap<String, Double> sameCategory = new HashMap<String, Double>();
 		for (String key: readData.keySet()) {
