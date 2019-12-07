@@ -6,6 +6,7 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
@@ -13,8 +14,11 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JButton;
 
@@ -47,7 +51,6 @@ public class AlternativeFoodFrame extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -69,33 +72,47 @@ public class AlternativeFoodFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		// Hardcoded for now. To be replaced with user's food selection from FoodSelectionFrame
+		/**
+		 * @author Xiaolu
+		 * see the functions below
+		 */
+		UserSelection us = new UserSelection();//this should be the same userSelection object which has created last frame
+		us.setFood("beef");  
+		us.setWeight(0.3);
+		Calculator c = new Calculator();
 		
-		String selectedFood = "Banana";
+		String recommendedFoodOne = c.getSimilarFood(us.getFood()).get(0);
+		double recommendedFoodOneGHGPerKG = c.getFoodGHGEmission(recommendedFoodOne);
+		double recommendedFoodOneCalPerKG = c.getFoodCalories(recommendedFoodOne);
+		String recommendedFoodTwo = c.getSimilarFood(us.getFood()).get(1);
+		double recommendedFoodTwoGHGPerKG = c.getFoodGHGEmission(recommendedFoodTwo);
+		double recommendedFoodTwoCalPerKG = c.getFoodCalories(recommendedFoodTwo);
+		String recommendedFoodThree = c.getSimilarFood(us.getFood()).get(2);
+		double recommendedFoodThreeGHGPerKG = c.getFoodGHGEmission(recommendedFoodThree);
+		double recommendedFoodThreeCalPerKG = c.getFoodGHGEmission(recommendedFoodThree);
 		
-		// Hardcoded for now. To be replaced with results from getSimilarFood method.
-		String recommendedFoodOne = "Apple";
-		double recommendedFoodOneGHGPerKG = 0.29;
-		double recommendedFoodOneCalPerKG = 590;
-		String recommendedFoodTwo = "Orange";
-		double recommendedFoodTwoGHGPerKG = 0.33;
-		double recommendedFoodTwoCalPerKG = 300;
-		String recommendedFoodThree = "Pear";
-		double recommendedFoodThreeGHGPerKG = 0.31;
-		double recommendedFoodThreeCalPerKG = 380;
+		/**
+		 * @author Xiaolu
+		 * Create dishlist for each recommended food
+		 */
 		
-		// Hardcoded for now. To be replaced with results from recommendedDishes method.
-		// Case of 3 recommended dishes
 		ArrayList<String> foodOneDishes = new ArrayList<>();
-		foodOneDishes.add("Apple Pie");
-		foodOneDishes.add("Apple Strudel");
-		foodOneDishes.add("Apple Juice");
-		// Case of 1 recommended dish
+		ArrayList<String> r1 = c.getDishesContainFood(us.getFood());
+		for(int i = 0; i < r1.size(); i++) {
+			foodOneDishes.add(r1.get(i));
+		}
+		
 		ArrayList<String> foodTwoDishes = new ArrayList<>();
-		foodTwoDishes.add("Orange Juice");
-		// Case of 2 recommende dishes
+		ArrayList<String> r2 = c.getDishesContainFood(us.getFood());
+		for(int i = 0; i < r2.size(); i++) {
+			foodOneDishes.add(r2.get(i));
+		}
+		
 		ArrayList<String> foodThreeDishes = new ArrayList<>();
-		foodThreeDishes.add("Pear Juice");
-		foodThreeDishes.add("Pear Pie");
+		ArrayList<String> r3 = c.getDishesContainFood(us.getFood());
+		for(int i = 0; i < r3.size(); i++) {
+			foodOneDishes.add(r3.get(i));
+		}
 		
 		HashMap<String,ArrayList<String>> recommendedDishes = new HashMap<>();
 		recommendedDishes.put(recommendedFoodOne, foodOneDishes);
@@ -166,24 +183,31 @@ public class AlternativeFoodFrame extends JFrame {
 						lblDishTwo.setBounds(490, 260, 100, 50);
 						imgDishThree.setBounds(630, 150, 100, 100);
 						lblDishThree.setBounds(630, 260, 100, 50);
-						
+						/**
+						 * @author Xiaolu
+						 * replaced hard codes with method below
+						 *  
+						 */
 						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
 							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
+							String imagepath = c.getDishPicPath(foodOneDishes.get(0));
+							imgDishOne.setIcon(new ImageIcon(imagepath)); 
 							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 1 dish 1</html>");
+							lblDishOne.setText(foodOneDishes.get(0));
 							
 						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
 							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
+							String imagepath = c.getDishPicPath(foodTwoDishes.get(0));
+							imgDishOne.setIcon(new ImageIcon(imagepath)); 
 							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 2 dish 1</html>");
+							lblDishOne.setText(foodTwoDishes.get(0));
 		
 						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
 							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
+							String imagepath = c.getDishPicPath(foodThreeDishes.get(0));
+							imgDishOne.setIcon(new ImageIcon(imagepath)); 
 							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 3 dish 1</html>");
+							lblDishOne.setText(foodThreeDishes.get(0));
 						}
 						
 						imgDishOne.setVisible(true);
@@ -205,28 +229,28 @@ public class AlternativeFoodFrame extends JFrame {
 						lblDishThree.setBounds(630, 260, 100, 50);
 						
 						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
-							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
-							imgDishTwo.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 1 dish 1</html>");
-							lblDishTwo.setText("<html>recommended Food 1 dish 2</html>");
+							String imagepath1 = c.getDishPicPath(foodOneDishes.get(0));
+							String imagepath2 = c.getDishPicPath(foodOneDishes.get(1));
+							imgDishOne.setIcon(new ImageIcon(imagepath1)); 
+							imgDishTwo.setIcon(new ImageIcon(imagepath2));
+							lblDishOne.setText(foodOneDishes.get(0));
+							lblDishTwo.setText(foodOneDishes.get(1));
 							
 						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
-							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
-							imgDishTwo.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 2 dish 1</html>");
-							lblDishTwo.setText("<html>recommended Food 2 dish 2</html>");
+							String imagepath1 = c.getDishPicPath(foodTwoDishes.get(0));
+							String imagepath2 = c.getDishPicPath(foodTwoDishes.get(1));
+							imgDishOne.setIcon(new ImageIcon(imagepath1)); 
+							imgDishTwo.setIcon(new ImageIcon(imagepath2));
+							lblDishOne.setText(foodTwoDishes.get(0));
+							lblDishTwo.setText(foodTwoDishes.get(1));
 							
 						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
-							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
-							imgDishTwo.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 3 dish 1</html>");
-							lblDishTwo.setText("<html>recommended Food 3 dish 2</html>");
+							String imagepath1 = c.getDishPicPath(foodThreeDishes.get(0));
+							String imagepath2 = c.getDishPicPath(foodThreeDishes.get(1));
+							imgDishOne.setIcon(new ImageIcon(imagepath1)); 
+							imgDishTwo.setIcon(new ImageIcon(imagepath2));
+							lblDishOne.setText(foodThreeDishes.get(0));
+							lblDishTwo.setText(foodThreeDishes.get(1));
 						}
 						
 						imgDishOne.setVisible(true);
@@ -248,35 +272,37 @@ public class AlternativeFoodFrame extends JFrame {
 						lblDishThree.setBounds(630, 260, 100, 50);
 						
 						if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodOne)) {
-							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
-							imgDishTwo.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							imgDishThree.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 1 dish 1</html>");
-							lblDishTwo.setText("<html>recommended Food 1 dish 2</html>");
-							lblDishThree.setText("<html>recommended Food 1 dish 3</html>");
+							String imagepath1 = c.getDishPicPath(foodOneDishes.get(0));
+							String imagepath2 = c.getDishPicPath(foodOneDishes.get(1));
+							String imagepath3 = c.getDishPicPath(foodOneDishes.get(2));
+							imgDishOne.setIcon(new ImageIcon(imagepath1)); 
+							imgDishTwo.setIcon(new ImageIcon(imagepath2));
+							imgDishOne.setIcon(new ImageIcon(imagepath3));
+							lblDishOne.setText(foodOneDishes.get(0));
+							lblDishTwo.setText(foodOneDishes.get(1));
+							lblDishTwo.setText(foodOneDishes.get(2));
 							
 						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodTwo)) {
-							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
-							imgDishTwo.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							imgDishThree.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 2 dish 1</html>");
-							lblDishTwo.setText("<html>recommended Food 2 dish 2</html>");
-							lblDishThree.setText("<html>recommended Food 2 dish 3</html>");
+							String imagepath1 = c.getDishPicPath(foodTwoDishes.get(0));
+							String imagepath2 = c.getDishPicPath(foodTwoDishes.get(1));
+							String imagepath3 = c.getDishPicPath(foodTwoDishes.get(2));
+							imgDishOne.setIcon(new ImageIcon(imagepath1)); 
+							imgDishTwo.setIcon(new ImageIcon(imagepath2));
+							imgDishOne.setIcon(new ImageIcon(imagepath3));
+							lblDishOne.setText(foodTwoDishes.get(0));
+							lblDishTwo.setText(foodTwoDishes.get(1));
+							lblDishTwo.setText(foodTwoDishes.get(2));
 							
 						} else if (cbRecipes.getSelectedItem().toString().equals(recommendedFoodThree)) {
-							// Use method to select corresponding dish images
-							imgDishOne.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")")); 
-							imgDishTwo.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							imgDishThree.setIcon(new ImageIcon("AlternativeFoodFrame.class.getResource(\"/javax/swing/plaf/basic/icons/image-delayed.png\")"));
-							// Use method to select corresponding dish names
-							lblDishOne.setText("<html>recommended Food 3 dish 1</html>");
-							lblDishTwo.setText("<html>recommended Food 3 dish 2</html>");
-							lblDishThree.setText("<html>recommended Food 3 dish 3</html>");
-							
+							String imagepath1 = c.getDishPicPath(foodThreeDishes.get(0));
+							String imagepath2 = c.getDishPicPath(foodThreeDishes.get(1));
+							String imagepath3 = c.getDishPicPath(foodThreeDishes.get(2));
+							imgDishOne.setIcon(new ImageIcon(imagepath1)); 
+							imgDishTwo.setIcon(new ImageIcon(imagepath2));
+							imgDishOne.setIcon(new ImageIcon(imagepath3));
+							lblDishOne.setText(foodThreeDishes.get(0));
+							lblDishTwo.setText(foodThreeDishes.get(1));
+							lblDishTwo.setText(foodThreeDishes.get(2));
 						}
 
 						imgDishOne.setVisible(true);
@@ -301,7 +327,7 @@ public class AlternativeFoodFrame extends JFrame {
 		
 		contentPane.add(cbRecipes);
 		
-		JLabel lblAltFood = new JLabel("<html>Instead of "+selectedFood.toLowerCase()+",<br>you can try:</html>");
+		JLabel lblAltFood = new JLabel("<html>Instead of "+us.getFood().toLowerCase()+",<br>you can try:</html>");
 		lblAltFood.setVerticalAlignment(SwingConstants.TOP);
 		lblAltFood.setForeground(new Color(102, 205, 170));
 		lblAltFood.setFont(new Font("Apple LiGothic", Font.PLAIN, 35));
@@ -368,6 +394,23 @@ public class AlternativeFoodFrame extends JFrame {
 		btnEmailResults.setOpaque(true);
 		btnEmailResults.setBounds(90, 450, 120, 30);
 		contentPane.add(btnEmailResults);
+		/**
+		 * @author Xiaolu
+		 * Add the sendMail function to this button, 
+		 */
+		User user = new User("username", "userEmail");//should be from the user object we created at the Welcome Frame
+		btnEmailResults.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					SendEmail mail = new SendEmail(user.getEmail());
+				} catch (GeneralSecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//to send the user a notice of email
+				JOptionPane.showMessageDialog(null, "The Email has been sent successfully.");
+			}
+		});
 		
 		JButton btnDownloadPDF = new JButton("Download PDF");
 		btnDownloadPDF.setBackground(new Color(0, 191, 255));
