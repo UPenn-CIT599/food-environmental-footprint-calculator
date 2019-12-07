@@ -1,0 +1,75 @@
+Name,Category,C Emission(g)/kg,Food source one,Food source two,Food source three,imagepath
+Cereal with Fruit,Breakfast,1148,apricot,barley,bananas,/src/1.jpg
+Omelet (with Veg & Cheese),Breakfast,1326,eggs,spinich,cheese,/src/2.jpg
+Whole Wheat Buttermilk Pancake,Breakfast,636,yoghurt,wheat,butter,/src/3.jpg
+Breakfast Cereal & Milk,Breakfast,1224,milk,oats,Barley,/src/4.jpg
+Hard Boiled Egg,Breakfast,333,eggs,null,null,/src/5.jpg
+Eggs Bacon & Toast,Breakfast,844,eggs,pork,wheat,/src/6.jpeg
+Fried Egg,Breakfast,336,eggs,butter,null,/src/7.jpg
+Omelet (with Meat and Cheese),Breakfast,1573,eggs,cheese,pork,/src/8.jpg
+Scrambled eggs,Breakfast,505,eggs,garlic,butter,/src/9.jpeg
+Steel Cut Oats(Irish/Scotch oats),Breakfast,144,oats,barley,maize,/src/10.jpg
+Toast & Butter,Breakfast,106,butter,raspberries,oats,/src/11.jpg
+Waffles with Syrup,Breakfast,827,wheat,cream,raspberries,/src/12.jpg
+Beef Chili,Main,1281,beef,peppers,peas,/src/13.jpg
+Roast Beef Sandwich,Main,2839,beef,cheese,letture,/src/14.jpg
+Chicken Stir-Fry,Main,608,chicken,onion,eggplants,/src/15.jpg
+Spinach & Pea Stew,Main,78,spinach,cowpeas,rice,/src/16.jpg
+Vegetarian Chili,Main,86,peppers,onion,eggplants,/src/17.jpg
+Spaghetti with Marinara,Main,352,garlic,tomatoes,Barley,/src/18.jpg
+Tuna (Fresh/ Regional/ Grilled),Main,259,tuna,broccoli,asparagus,/src/19.jpg
+Black Bean Tacos,Main,453,beans,corn,peppers,/src/20.jpg
+Chicken & Cheese Burrito,Main,741,chicken,cheese,tomatoes,/src/21.jpg
+Veg Burrito (Veg/Beans/Cheese/Rice),Main,501,beans,cheese,beans,/src/22.jpeg
+Caesar Salad,Main,558,lettuce,olives,cheese,/src/23.jpg
+Cheeseburger,Main,2826,beef,cheese,lettuce,/src/24.jpg
+Pepperoni Pizza Slice,Main,644,peppers,pork,wheat,/src/25.jpg
+Chicken Caesar Salad,Main,863,chicken,beetroot,olives,/src/26.jpeg
+Chicken Chow Mein,Main,646,chicken,carrots,garlic,/src/27.jpg
+Chicken Curry,Main,563,chicken,garlic,potatoes,/src/28.jpg
+Chicken Tenders,Main,490,chicken,lemons and limes,null,/src/29.jpeg
+Fish and Chips,Main,541,cod,sole,potatoes,/src/30.jpg
+Fish Tacos,Main,527,cod,sole,corn,/src/31.jpg
+Garden Salad,Main,401,carriots,avocados,celery,/src/32.jpg
+Grilled Fish,Main,75,salmon,haddock,sea bass,/src/33.jpg
+Baked Fish,Main,393,cod,pollock,turbot,/src/34.jpg
+Grilled Veg & Hummus Sandwich,Main,270,beans,potatos,beetroot,/src/35.jpg
+Italian Sausage Lasagna,Main,1022,beef,tomatoes,garlic,/src/36.jpg
+Lamb Curry,Main,2140,lamb,garlic,potatoes,/src/37.jpg
+Beef Curry,Main,2584,beef,garlic,potatoes,/src/38.jpg
+Macaroni & cheese,Main,906,wheat,cheese,tomatoes,/src/39.jpg
+Pasta Primavera,Main,392,carriots,artichokes,zucchini,/src/40.jpeg
+Sushi ,Main,587,shrimp,tuna,eel,/src/41.jpg
+Spaghetti with Meatballs,Main,1659,beef,null,tomatoes,/src/42.jpg
+Tofu Stir-Fry,Main,1340,tofu,cauliflowers,cowpeas,/src/43.jpg
+Spinach & Tofu Salad,Main,552,spinach,tofu,beetroot,/src/44.jpg
+Tuna Salad Sandwich,Main,529,tuna,potatos,lettuce,/src/45.jpg
+Turkey Burger,Main,697,turkey,cheese,lettuce ,/src/46.jpg
+Vegetable Curry,Main,260,cassava,fennel,tofu,/src/47.jpg
+Vegetarian Lasagna,Main,771,tomatos,onion,zucchini,/src/48.jpg
+Mashed Potatoes with Butter,Sides,101,potatoes,butter,null,/src/49.jpeg
+Onion Rings,Sides,107,onion,null,null,/src/50.jpg
+Hummus,Sides,132,chick peas,cowpeas,lentils,/src/51.jpg
+Seasonal Steamed Vegetables,Sides,83,pumpkins,celery,carriots,/src/52.jpg
+Yogurt with Fruit,Dissert,306,yogurt,apples,cherries,/src/53.jpg
+Yogurt with Seasonal Fruit with Granola,Dissert,340,yogurt,cranberries,grapes,/src/54.jpg
+Chocolate Chip Cookies,Dissert,153,chocolate,chestnuts,apricot,/src/55.jpg
+Milk Chocolate Bar,Dissert,277,chocolate,Almond/coconut milk,cashew nut,/src/56.jpg
+Cake,Dissert,155,cream,hazelnuts,chocolate,/src/57.jpg
+Seasonal Fruit,Dissert,84,Grapefruit and pomelo,orange,pears,/src/58.jpeg
+Tropical Fruit,Dissert,380,guavas,kiwi fruit,pineapples,/src/59.jpg
+Three Bean Soup,Soup,54,chick peas,cowpeas,lentils,/src/60.jpg
+Minestrone Soup,Soup,189,tomatos,celery,wheat,/src/61.jpeg
+Chicken Noodle Soup,Soup,253,chicken,carrots,wheat,/src/62.jpg
+oats with sweet potato porridge,Breakfast,118,potatoes,oats,soybean,/src/63.jpg
+Pumpkin with vegetables porridge,Breakfast,118,pumpkins,lettures,mushrooms,/src/64.jpg
+Sauteed garlic chicken,Main,119,chicken,garlic,peas,/src/65.jpg
+Steamed Fish,Main,236,trout,turbot,mackerel,/src/66.jpg
+Sauteed shrimp with multicolored mushroom,Main,72,mushrooms,shrimp,cucumber,/src/67.jpg
+Chicken fruit salad,Sides,72,chicken,strawberries,peaches,/src/68.jpg
+Walnut with purple rice porridge,Dissert,118,rice,walnuts,rye grain,/src/69.jpg
+Seafood tofu soup,Soup,118,octopus,herring,tofu,/src/70.jpg
+Oyster melon soup,Soup,118,watermelons,mussels,lobster,/src/71.jpg
+Cooked Job's tears rice,Sides,236,rice,quinoa,sesame seed,/src/72.jpg
+Sauteed asparagus with shrimp,Main,71,shrimp,asparagus,peanuts,/src/73.jpg
+Pumpkin vegetable pancakes,Sides,118,pumpkins,sunflower seed,fennel,/src/74.jpg

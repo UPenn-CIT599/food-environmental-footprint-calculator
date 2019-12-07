@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 
 		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca1.jpg"); // Only use absolute path for
+		ImageIcon welcomeMascot = new ImageIcon("chewpaca1.jpg"); // Only use absolute path for
 																						// testing purpose
 		Image originalImage = welcomeMascot.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
@@ -64,14 +64,14 @@ public class MainFrame extends JFrame {
 		// Welcome title, displaying the name of the project "FOOD ENVIRONMENTAL
 		// FOOTPRINT CALCULATOR"
 		JLabel welcomeTitle1 = new JLabel();
-		welcomeTitle1.setFont(new Font("Apple LiGothic", Font.PLAIN, 56));
+		welcomeTitle1.setFont(new Font("Apple LiGothic", Font.PLAIN, 36));
 		welcomeTitle1.setForeground(Color.WHITE);
 		welcomeTitle1.setOpaque(false);
 		welcomeTitle1.setText("<html>Food Environmental");
 		welcomeTitle1.setBounds(50, 37, 427, 76);
 
 		JLabel welcomeTitle2 = new JLabel();
-		welcomeTitle2.setFont(new Font("Apple LiGothic", Font.PLAIN, 56));
+		welcomeTitle2.setFont(new Font("Apple LiGothic", Font.PLAIN, 36));
 		welcomeTitle2.setForeground(Color.WHITE);
 		welcomeTitle2.setOpaque(false);
 		welcomeTitle2.setText("Footprint Calculator");
@@ -111,6 +111,10 @@ public class MainFrame extends JFrame {
 	
 
 		// Button to move to next frame, if users input information correctly
+		/**
+		 * @author Xiaolu 
+		 * Add function to move to next frame
+		 */
 		JButton letsGo = new JButton("Let's go!");
 		letsGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -130,7 +134,7 @@ public class MainFrame extends JFrame {
 				
 		});
 		letsGo.setBackground(new Color(255, 182, 193));
-		letsGo.setFont(new Font("Apple LiGothic", Font.PLAIN, 30));
+		letsGo.setFont(new Font("Arial", Font.PLAIN, 25));
 		letsGo.setBounds(199, 456, 117, 61);
 		getContentPane().add(letsGo);
 
