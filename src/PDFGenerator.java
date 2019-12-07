@@ -28,7 +28,7 @@ public class PDFGenerator {
 
 	public static final String DEST = "/Users/hastuko/eclipse-workspace/Final Project 591/GreenfoodSuggestion.pdf";//the path of the pdf file
 
-	public void createPdf(String dest) throws IOException {
+	public void createPdf(String dest, User user) throws IOException {
 		// Initialize PDF writer
 		PdfWriter writer = new PdfWriter(dest);
 
@@ -40,24 +40,19 @@ public class PDFGenerator {
 
 		// Create a PdfFont
 		PdfFont font = PdfFontFactory.createFont(FontConstants.TIMES_BOLD);
-		
-		//Need to be changed later
-		User u = new User("Pablo", "12345@mail.com");
-		UserSelection input = new UserSelection("beef", 0.2);
+	
 		Calculator c = new Calculator();
-		
-		
 		/**
 		 * First Part: paragraph of description
 		 */
 		// Add a Paragraph
-		document.add(new Paragraph("Dear " + u.getName() + ", ").setFont(font).setFontSize(20));
+		document.add(new Paragraph("Dear " + user.getName() + ", ").setFont(font).setFontSize(20));
 		// Create a List
 		List list = new List().setSymbolIndent(12).setListSymbol("\u2022");
 		// Add ListItem objects
-		double annualGHG = c.getAnnualGHG(input.getWeight());
-		list.add(new ListItem("Your favourite food is " + input.getFood()))
-				.add(new ListItem("By eating " + input.getWeight() + "(kg) everyday, you'll have " + annualGHG + " emmission."))
+		double annualGHG = c.getAnnualGHG(user.getFoodWeight());
+		list.add(new ListItem("Your favourite food is " + user.getFoodSelection()))
+				.add(new ListItem("By eating " + user.getFoodWeight() + "(kg) everyday, you'll have " + annualGHG + " emmission."))
 				.add(new ListItem("which is eqvilant to " + c.getCarKMEquivalent(annualGHG) + " car km."))
 		        .add(new ListItem("which is eqvilant to " + c.getEquivalentBulbLightDays(annualGHG) + " LED bulb light days."))
 		        .add(new ListItem("which is eqvilant to " + c.getEquivalentFlightKM(annualGHG) + " flight km"));
@@ -80,7 +75,7 @@ public class PDFGenerator {
 		table.addHeaderCell(new Cell().add("FoodName").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		table.addHeaderCell(new Cell().add("GHG Value").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		table.addHeaderCell(new Cell().add("Calories").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
-		ArrayList<String> recommendfood = c.getSimilarFood(input.getFood());
+		ArrayList<String> recommendfood = c.getSimilarFood(user.getFoodSelection());
 		String food1 = recommendfood.get(0);
 		String food2 = recommendfood.get(1);
 		String food3 = recommendfood.get(2);
