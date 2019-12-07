@@ -109,32 +109,103 @@ public class Calculator {
 //		return similarfood;
 //	}
 	
+//	/**
+//	 * 
+//	 * @param the user input food name
+//	 * @return an Arraylist contains other three random food in the same category.
+//	 * Preivous method. keep it in there in case we need it
+//	 */
+//	public ArrayList<String> getSimilarFood(String name){
+//		HashMap<String,Food> readData = new FoodDataReader ("FoodGHS.csv").getData();
+//		String selectedFoodCategory = readData.get(name).getCategory();
+//		ArrayList<String> sameCategory = new ArrayList<String>();
+//		for (String key: readData.keySet()) {
+//			if (readData.get(key).getCategory().equals(selectedFoodCategory)) {
+//				if (!key.equals(name)) {
+//					sameCategory.add(key);
+//					
+//				}
+//			}
+//		}
+//		Random rand = new Random();
+//		ArrayList<String> randomThreeFood = new ArrayList<String>();
+//		for (int i = 0; i < 3;i++) {
+//			int randNumber = rand.nextInt(sameCategory.size());
+//			randomThreeFood.add(sameCategory.get(randNumber));
+//			sameCategory.remove(randNumber);
+//		}
+//		return randomThreeFood;
+//	}
+	
 	/**
 	 * 
 	 * @param the user input food name
-	 * @return an Arraylist contains other three random food in the same category.
+	 * @return an Arraylist contains three other food in the same category, sorted by GHG. If database doesn't
+	 * have enough food in same category with lower GHG, randomly select some food in same category and add them
+	 * in the Arraylist
 	 */
 	public ArrayList<String> getSimilarFood(String name){
+		ArrayList<String> similarfood = new ArrayList<String>();
 		HashMap<String,Food> readData = new FoodDataReader ("FoodGHS.csv").getData();
 		String selectedFoodCategory = readData.get(name).getCategory();
-		ArrayList<String> sameCategory = new ArrayList<String>();
+		HashMap<String, Double> sameCategory = new HashMap<String, Double>();
+		for (String key: readData.keySet()) {
+			if (readData.get(key).getCategory().equals(selectedFoodCategory)) {
+				sameCategory.put(key, readData.get(key).getCarbonEmissions());
+			}
+		}
+		ArrayList<Double> carbonEmissionList = new ArrayList<>();
+		for (String key: sameCategory.keySet()) {
+			carbonEmissionList.add(sameCategory.get(key));	
+		}
+		Collections.sort(carbonEmissionList);
+		ArrayList<String> topThreeFood = new ArrayList<String>();
+		for (int i = 0; i < 3; i++) {
+			for (String key: sameCategory.keySet()) {
+				if (sameCategory.get(key) == carbonEmissionList.get(i)) {
+					topThreeFood.add(key);
+				}
+			}
+		}
+		for (int i = 0; i < topThreeFood.size();i++) {
+			if (topThreeFood.get(i).equals(name)) {
+				i = 4;
+			}
+		else {
+				similarfood.add(topThreeFood.get(i));
+			}
+		}
+		
+		ArrayList<String> sameCategoryWithoutSelectedFood = new ArrayList<String>();
 		for (String key: readData.keySet()) {
 			if (readData.get(key).getCategory().equals(selectedFoodCategory)) {
 				if (!key.equals(name)) {
-					sameCategory.add(key);
+					sameCategoryWithoutSelectedFood.add(key);
 					
 				}
 			}
 		}
-		Random rand = new Random();
-		ArrayList<String> randomThreeFood = new ArrayList<String>();
-		for (int i = 0; i < 3;i++) {
-			int randNumber = rand.nextInt(sameCategory.size());
-			randomThreeFood.add(sameCategory.get(randNumber));
-			sameCategory.remove(randNumber);
+		for (int i = 0; i<similarfood.size();i++) {
+			if (sameCategoryWithoutSelectedFood.contains(similarfood.get(i))) {
+				sameCategoryWithoutSelectedFood.remove(similarfood.get(i));
+			}
+
 		}
-		return randomThreeFood;
-	}
+		Random rand = new Random();
+		int randFoodWeNeed = 3 - similarfood.size();
+		for (int i = 0; i < randFoodWeNeed;i++) {
+		int randNumber = rand.nextInt(sameCategoryWithoutSelectedFood.size());
+		similarfood.add(sameCategoryWithoutSelectedFood.get(randNumber));
+		sameCategoryWithoutSelectedFood.remove(randNumber);
+	}		
+
+		return similarfood;
+
+	}	
+	
+	
+	
+	
 	/**
 	 * 
 	 * @param food name
