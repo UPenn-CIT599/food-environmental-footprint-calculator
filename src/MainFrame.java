@@ -147,14 +147,16 @@ public class MainFrame extends JFrame {
 		teamName1.setBounds(580, 62, 200, 100);
 		this.getContentPane().add(teamName1);
 
-		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
-
-		// Import image from src folder
-		String fileName = "chewpaca1.jpg";
-
-		// Resize image to fit window's resolution
-		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
-		Image originalImage = icon.getImage();
+		// Import and resize background image
+		BufferedImage backgroundImage = null;
+		try {
+			URL url = getClass().getResource("images/chewpaca1.jpg");
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e) {
+			// null
+		}
+		ImageIcon backgroundIcon = new ImageIcon(backgroundImage);
+		Image originalImage = backgroundIcon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
 		JLabel background = new JLabel("");

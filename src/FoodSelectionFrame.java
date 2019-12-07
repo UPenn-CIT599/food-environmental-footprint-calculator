@@ -64,18 +64,19 @@ public class FoodSelectionFrame extends JFrame {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	/**
 	 * Capitalises the first letter of the string
+	 * 
 	 * @param str is the input string to be capitalised
 	 * @return A string with the first letter capitalised
 	 */
 	public static String capitalise(String str) {
-	    if(str == null || str.isEmpty()) {
-	        return str;
-	    }
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
 
-	    return str.substring(0, 1).toUpperCase() + str.substring(1);
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class FoodSelectionFrame extends JFrame {
 					// If a food item has been selected
 					if (!cbFood.getSelectedItem().equals("Choose one...")) {
 						String food = cbFood.getSelectedItem().toString();
-						user.setFoodName(food);
+						user.setFoodName(food.toLowerCase());
 						if (cbWeightUnit.getSelectedItem().toString().equals("kg")) {
 							user.setFoodWeight(w);
 						} else {
@@ -209,7 +210,7 @@ public class FoodSelectionFrame extends JFrame {
 
 					// Add food items to Food ComboBox from input csv, based on the selected food
 					// category
-					
+
 					cbFood.addItem("Choose one...");
 					for (int i = 0; i < categories.size(); i++) {
 						if (cbFoodCategories.getSelectedItem().equals(capitalise(categories.get(i)))) {
@@ -237,12 +238,16 @@ public class FoodSelectionFrame extends JFrame {
 			}
 		});
 
-		// Import image from src folder
-		String fileName = "chewpaca2.jpg";
-
-		// Resize image to fit window's resolution
-		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
-		Image originalImage = icon.getImage();
+		// Import and resize background image
+		BufferedImage backgroundImage = null;
+		try {
+			URL url = getClass().getResource("images/chewpaca2.jpg");
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e) {
+			// null
+		}
+		ImageIcon backgroundIcon = new ImageIcon(backgroundImage);
+		Image originalImage = backgroundIcon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
 		JLabel background = new JLabel("");

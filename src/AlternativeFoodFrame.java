@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.Position;
+
+import com.itextpdf.io.IOException;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
@@ -79,9 +82,10 @@ public class AlternativeFoodFrame extends JFrame {
 		}
 		return bounds;
 	}
-	
+
 	/**
 	 * Generates a resized image given the dish image paths
+	 * 
 	 * @param dishImagePath is the image path of the selected dish
 	 * @return an Image class of the dish image of dimension 100 by 100
 	 */
@@ -99,18 +103,21 @@ public class AlternativeFoodFrame extends JFrame {
 		return resizedDishImage;
 
 	}
+
 	/**
 	 * Capitalises the first letter of the string
+	 * 
 	 * @param str is the input string to be capitalised
 	 * @return A string with the first letter capitalised
 	 */
 	public static String capitalise(String str) {
-	    if(str == null || str.isEmpty()) {
-	        return str;
-	    }
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
 
-	    return str.substring(0, 1).toUpperCase() + str.substring(1);
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -213,7 +220,7 @@ public class AlternativeFoodFrame extends JFrame {
 				if (!cbRecipes.getSelectedItem().toString().equals("Choose one...")) {
 					// Generate list of dishes that can be made with the recommended food item
 					ArrayList<String> foodDishes = new ArrayList<>();
-					foodDishes = c.getDishesContainFood(cbRecipes.getSelectedItem().toString().toLowerCase()); 
+					foodDishes = c.getDishesContainFood(cbRecipes.getSelectedItem().toString().toLowerCase());
 
 					// Set bounds for the dish placeholders
 					HashMap<String, Rectangle> boundsHM = getBounds(foodDishes);
@@ -225,7 +232,7 @@ public class AlternativeFoodFrame extends JFrame {
 					lblDishThree.setBounds(boundsHM.get("lblDishThree"));
 
 					// Set visibility of placeholders based on number of dishes recommended
-					
+
 					// One dish is recommended
 					if (foodDishes.size() == 1) {
 						imgDishOne.setVisible(true);
@@ -240,10 +247,10 @@ public class AlternativeFoodFrame extends JFrame {
 						// Image 1
 						Image imageOne = getDishImage(c.getDishPicPath(foodDishes.get(0)));
 						imgDishOne.setIcon(new ImageIcon(imageOne));
-						lblDishOne.setText("<html>"+capitalise(foodDishes.get(0))+"</html>");
-					} 
-					
-					// Two dishes are recommended	
+						lblDishOne.setText("<html>" + capitalise(foodDishes.get(0)) + "</html>");
+					}
+
+					// Two dishes are recommended
 					else if (foodDishes.size() == 2) {
 						imgDishOne.setVisible(true);
 						lblDishOne.setVisible(true);
@@ -257,14 +264,14 @@ public class AlternativeFoodFrame extends JFrame {
 						// Image 1
 						Image imageOne = getDishImage(c.getDishPicPath(foodDishes.get(0)));
 						imgDishOne.setIcon(new ImageIcon(imageOne));
-						lblDishOne.setText("<html>"+capitalise(foodDishes.get(0))+"</html>");
+						lblDishOne.setText("<html>" + capitalise(foodDishes.get(0)) + "</html>");
 
 						// Image 2
 						Image imageTwo = getDishImage(c.getDishPicPath(foodDishes.get(1)));
 						imgDishTwo.setIcon(new ImageIcon(imageTwo));
-						lblDishTwo.setText("<html>"+capitalise(foodDishes.get(1))+"</html>");
+						lblDishTwo.setText("<html>" + capitalise(foodDishes.get(1)) + "</html>");
 
-					} 
+					}
 					// Three dishes are recommended
 					else if (foodDishes.size() == 3) {
 						imgDishOne.setVisible(true);
@@ -279,17 +286,17 @@ public class AlternativeFoodFrame extends JFrame {
 						// Image 1
 						Image imageOne = getDishImage(c.getDishPicPath(foodDishes.get(0)));
 						imgDishOne.setIcon(new ImageIcon(imageOne));
-						lblDishOne.setText("<html>"+capitalise(foodDishes.get(0))+"</html>");
+						lblDishOne.setText("<html>" + capitalise(foodDishes.get(0)) + "</html>");
 
 						// Image 2
 						Image imageTwo = getDishImage(c.getDishPicPath(foodDishes.get(1)));
 						imgDishTwo.setIcon(new ImageIcon(imageTwo));
-						lblDishTwo.setText("<html>"+capitalise(foodDishes.get(1))+"</html>");
-						
+						lblDishTwo.setText("<html>" + capitalise(foodDishes.get(1)) + "</html>");
+
 						// Image 3
 						Image imageThree = getDishImage(c.getDishPicPath(foodDishes.get(2)));
 						imgDishThree.setIcon(new ImageIcon(imageThree));
-						lblDishThree.setText("<html>"+capitalise(foodDishes.get(2))+"</html>");
+						lblDishThree.setText("<html>" + capitalise(foodDishes.get(2)) + "</html>");
 
 					}
 				}
@@ -381,39 +388,51 @@ public class AlternativeFoodFrame extends JFrame {
 
 		btnEmailResults.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				try {
 					new PDFGenerator().createPdf("results.pdf", user);
 					SendEmail mail = new SendEmail(user.getEmail());
+					// Send the user a notice of email
+					JOptionPane.showMessageDialog(null, "The email has been sent to " + user.getEmail() + ".");
+
+				} catch (java.io.IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				} catch (GeneralSecurityException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				// to send the user a notice of email
-				JOptionPane.showMessageDialog(null, "The email has been sent to " + user.getEmail() + ".");
+
 			}
 		});
 
 		JButton btnTryAgain = new JButton("Try Again");
 		btnTryAgain.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				Point position = getLocation();
-				FoodSelectionFrame fsf = new FoodSelectionFrame(position,user);
+				FoodSelectionFrame fsf = new FoodSelectionFrame(position, user);
 				fsf.setVisible(true);
 				setVisible(false);
 				dispose();
 			}
 		});
+
 		btnTryAgain.setBackground(new Color(102, 205, 170));
 		btnTryAgain.setOpaque(true);
 		btnTryAgain.setBounds(90, 488, 120, 30);
 		contentPane.add(btnTryAgain);
 
-		// Import image from src folder
-		String fileName = "chewpaca4.jpg";
-
-		// Resize image to fit window's resolution
-		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
-		Image originalImage = icon.getImage();
+		// Import and resize background image
+		BufferedImage backgroundImage = null;
+		try {
+			URL url = getClass().getResource("images/chewpaca4.jpg");
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e) {
+			// null
+		}
+		ImageIcon backgroundIcon = new ImageIcon(backgroundImage);
+		Image originalImage = backgroundIcon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
 		JLabel background = new JLabel("");

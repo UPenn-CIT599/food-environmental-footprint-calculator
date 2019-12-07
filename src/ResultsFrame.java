@@ -131,12 +131,16 @@ public class ResultsFrame extends JFrame {
 			}
 		});
 
-		// Import image from src folder
-		String fileName = "chewpaca3.jpg";
-
-		// Resize image to fit window's resolution
-		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
-		Image originalImage = icon.getImage();
+		// Import and resize background image
+		BufferedImage backgroundImage = null;
+		try {
+			URL url = getClass().getResource("images/chewpaca3.jpg");
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e) {
+			// null
+		}
+		ImageIcon backgroundIcon = new ImageIcon(backgroundImage);
+		Image originalImage = backgroundIcon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
 		JLabel background = new JLabel("");

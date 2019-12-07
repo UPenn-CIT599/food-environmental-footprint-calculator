@@ -26,7 +26,7 @@ import java.util.ArrayList;
  */
 public class PDFGenerator {
 
-	public static final String DEST = "/Users/hastuko/eclipse-workspace/Final Project 591/GreenfoodSuggestion.pdf";//the path of the pdf file
+	private static final String DEST = "GreenfoodSuggestion.pdf"; // The path of the pdf file
 
 	public void createPdf(String dest, User user) throws IOException {
 		// Initialize PDF writer
@@ -51,8 +51,8 @@ public class PDFGenerator {
 		List list = new List().setSymbolIndent(12).setListSymbol("\u2022");
 		// Add ListItem objects
 		double annualGHG = c.getAnnualGHG(user.getFoodWeight());
-		list.add(new ListItem("Your favourite food is " + user.getFoodSelection()))
-				.add(new ListItem("By eating " + user.getFoodWeight() + "(kg) everyday, you'll have " + annualGHG + " emmission."))
+		list.add(new ListItem("Your favourite food is " + user.getFoodName()))
+				.add(new ListItem("By eating " + user.getFoodWeight() + "(kg) everyday for 1 year, you'll have " + annualGHG + " emmission."))
 				.add(new ListItem("which is eqvilant to " + c.getCarKMEquivalent(annualGHG) + " car km."))
 		        .add(new ListItem("which is eqvilant to " + c.getEquivalentBulbLightDays(annualGHG) + " LED bulb light days."))
 		        .add(new ListItem("which is eqvilant to " + c.getEquivalentFlightKM(annualGHG) + " flight km"));
@@ -75,19 +75,19 @@ public class PDFGenerator {
 		table.addHeaderCell(new Cell().add("FoodName").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		table.addHeaderCell(new Cell().add("GHG Value").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		table.addHeaderCell(new Cell().add("Calories").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
-		ArrayList<String> recommendfood = c.getSimilarFood(user.getFoodSelection());
+		ArrayList<String> recommendfood = c.getSimilarFood(user.getFoodName());
 		String food1 = recommendfood.get(0);
 		String food2 = recommendfood.get(1);
 		String food3 = recommendfood.get(2);
 		//add food to Table
 		table.addCell(new Cell().add(food1));
-		table.addCell(new Cell().add(String.valueOf(c.getFoodGHGEmission(food1))));
+		table.addCell(new Cell().add(String.valueOf(c.getFoodGHGEmission(food1,1.0))));
 		table.addCell(new Cell().add(String.valueOf(c.getFoodCalories(food1))));
 		table.addCell(new Cell().add(food2));
-		table.addCell(new Cell().add(String.valueOf(c.getFoodGHGEmission(food2))));
+		table.addCell(new Cell().add(String.valueOf(c.getFoodGHGEmission(food2,1.0))));
 		table.addCell(new Cell().add(String.valueOf(c.getFoodCalories(food2))));
 		table.addCell(new Cell().add(food3));
-		table.addCell(new Cell().add(String.valueOf(c.getFoodGHGEmission(food3))));
+		table.addCell(new Cell().add(String.valueOf(c.getFoodGHGEmission(food3,1.0))));
 		table.addCell(new Cell().add(String.valueOf(c.getFoodCalories(food3))));
 		document.add(table);
 
@@ -155,7 +155,5 @@ public class PDFGenerator {
 		document.close();
 	}
 	
-	public static void main(String args[]) throws IOException {
-		new PDFGenerator().createPdf(DEST);
-	}
+	
 }
