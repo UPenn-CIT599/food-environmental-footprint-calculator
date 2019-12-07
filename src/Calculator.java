@@ -64,6 +64,7 @@ public class Calculator {
 		double flightKM = AnnualGHG/0.186;
 		return flightKM;
 	}
+
 	/**
 	 * 
 	 * @param foodDataReader
@@ -80,6 +81,18 @@ public class Calculator {
 		}
 		return foodgroup;	
 	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @return dish category
+	 */
+	public String getDishCategory(String name) {
+		HashMap<String,Dish> readDish = new DishDataReader("Dishes.csv").getData();
+		String category = readDish.get(name).getGroup();
+		return category;
+	}
+	
 	/**
 	 * 
 	 * @param foodgroup
