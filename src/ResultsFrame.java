@@ -46,20 +46,19 @@ public class ResultsFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame
 	 */
 	public ResultsFrame(Point position, User user) {
 		setUser(user);
 		setLocation(position);
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		this.user = user;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
+		// Calculate the GHG(eq) emissions based on user's inputs
 		Calculator c = new Calculator();
 		double weightKG = user.getFoodWeight();
 		String selectedFood = user.getFoodName();
@@ -99,6 +98,7 @@ public class ResultsFrame extends JFrame {
 		resultsCarKM.setForeground(Color.WHITE);
 		this.getContentPane().add(resultsCarKM);
 
+		// Button to click to display the next frame (AlternativeFoodFrame)
 		JButton btnExploreAltFood = new JButton("Tell me more!");
 		btnExploreAltFood.setFont(new Font("Apple LiGothic", Font.BOLD, 25));
 		btnExploreAltFood.setBackground(new Color(238, 232, 170));
@@ -128,12 +128,12 @@ public class ResultsFrame extends JFrame {
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
-		JLabel welcomeBackground = new JLabel("");
-		welcomeBackground.setBackground(Color.WHITE);
-		welcomeBackground.setForeground(Color.DARK_GRAY);
-		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 800, 600);
-		this.getContentPane().add(welcomeBackground);
+		JLabel background = new JLabel("");
+		background.setBackground(Color.WHITE);
+		background.setForeground(Color.DARK_GRAY);
+		background.setIcon(new ImageIcon(resizedImage));
+		background.setBounds(0, 0, 800, 600);
+		this.getContentPane().add(background);
 
 	}
 }

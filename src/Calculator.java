@@ -93,7 +93,6 @@ public class Calculator {
 				foodlist.add(key);		
 			}	
 		}
-		System.out.println(foodlist);
 		return foodlist;
 	}
 

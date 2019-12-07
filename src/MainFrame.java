@@ -19,9 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.beans.PropertyChangeEvent;
 
 public class MainFrame extends JFrame {
 
@@ -54,8 +52,7 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		// Welcome title, displaying the name of the project "FOOD ENVIRONMENTAL
-		// FOOTPRINT CALCULATOR"
+		// Welcome title displaying name of the application (first line)
 		JLabel welcomeTitle1 = new JLabel();
 		welcomeTitle1.setFont(new Font("Apple LiGothic", Font.PLAIN, 36));
 		welcomeTitle1.setForeground(Color.WHITE);
@@ -63,6 +60,7 @@ public class MainFrame extends JFrame {
 		welcomeTitle1.setText("<html>Food Environmental");
 		welcomeTitle1.setBounds(50, 37, 427, 76);
 
+		// Welcome title displaying name of the application (second line)
 		JLabel welcomeTitle2 = new JLabel();
 		welcomeTitle2.setFont(new Font("Apple LiGothic", Font.PLAIN, 36));
 		welcomeTitle2.setForeground(Color.WHITE);
@@ -73,6 +71,7 @@ public class MainFrame extends JFrame {
 		this.getContentPane().add(welcomeTitle1);
 		this.getContentPane().add(welcomeTitle2);
 
+		// Separator line below the welcome titl
 		JPanel separator = new JPanel();
 		separator.setBackground(Color.WHITE);
 		separator.setOpaque(true);
@@ -87,7 +86,7 @@ public class MainFrame extends JFrame {
 		introChewpaca.setBounds(65, 200, 361, 149);
 		this.getContentPane().add(introChewpaca);
 
-		// Input fields for user's name and email address
+		// Input fields for user's name
 		JTextField txtUserName = new JTextField("Name");
 		txtUserName.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
 		txtUserName.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
@@ -95,6 +94,7 @@ public class MainFrame extends JFrame {
 		txtUserName.setBounds(123, 383, 255, 26);
 		this.getContentPane().add(txtUserName);
 
+		// Input field for user's email address
 		JTextField txtUserEmail = new JTextField("Email");
 		txtUserEmail.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
 		txtUserEmail.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
@@ -102,14 +102,16 @@ public class MainFrame extends JFrame {
 		txtUserEmail.setBounds(123, 418, 255, 26);
 		this.getContentPane().add(txtUserEmail);
 
-		// Button to move to next frame, if users input information correctly
-		/**
-		 * @author Xiaolu Add function to move to next frame
-		 */
+		// Button to move to the next frame (FoodSelectionFrame)
 		JButton letsGo = new JButton("Let's go!");
+		letsGo.setBackground(new Color(255, 182, 193));
+		letsGo.setFont(new Font("Arial", Font.PLAIN, 25));
+		letsGo.setBounds(199, 456, 117, 61);
+		getContentPane().add(letsGo);
 		letsGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Start second frame
+
+				// Check if user has input the name and email
 				if (!txtUserName.getText().equals("Name") && !txtUserName.getText().equals("")
 						&& !txtUserEmail.getText().equals("Email") && !txtUserEmail.getText().equals("")) {
 					Point position = getLocation();
@@ -117,16 +119,14 @@ public class MainFrame extends JFrame {
 					FoodSelectionFrame frame2 = new FoodSelectionFrame(position, user);
 					frame2.setVisible(true);
 					setVisible(false);
-				} else {
+				}
+				// Pop-up dialog if user did not input name and email
+				else {
 					JOptionPane.showMessageDialog(null, "Don't be shy, tell me your name and email!");
 				}
 			}
 
 		});
-		letsGo.setBackground(new Color(255, 182, 193));
-		letsGo.setFont(new Font("Arial", Font.PLAIN, 25));
-		letsGo.setBounds(199, 456, 117, 61);
-		getContentPane().add(letsGo);
 
 		// Small credits to ourselves
 		JLabel teamName1 = new JLabel(
@@ -138,7 +138,7 @@ public class MainFrame extends JFrame {
 
 		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
 
-		// Import background image
+		// Import image from src folder
 		BufferedImage backgroundImage = null;
 		String fileName = "chewpaca1.jpg";
 		try {
@@ -147,16 +147,18 @@ public class MainFrame extends JFrame {
 		} catch (Exception e2) {
 			// null
 		}
+
+		// Resize image to fit window's resolution
 		ImageIcon icon = new ImageIcon(backgroundImage);
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
-		
-		JLabel welcomeBackground = new JLabel("");
-		welcomeBackground.setBackground(Color.WHITE);
-		welcomeBackground.setForeground(Color.DARK_GRAY);
-		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 800, 600);
-		this.getContentPane().add(welcomeBackground);
+
+		JLabel background = new JLabel("");
+		background.setBackground(Color.WHITE);
+		background.setForeground(Color.DARK_GRAY);
+		background.setIcon(new ImageIcon(resizedImage));
+		background.setBounds(0, 0, 800, 600);
+		this.getContentPane().add(background);
 
 	}
 

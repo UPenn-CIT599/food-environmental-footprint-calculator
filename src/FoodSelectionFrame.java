@@ -46,16 +46,26 @@ public class FoodSelectionFrame extends JFrame {
 		});
 	}
 
+	/**
+	 * Get the user class from FoodSelectionFrame class
+	 * 
+	 * @return the user class
+	 */
 	public User getUser() {
 		return this.user;
 	}
 
+	/**
+	 * Set the user class in the FoodSelectionFrame class
+	 * 
+	 * @param user class to be set
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame
 	 */
 	public FoodSelectionFrame(Point position, User user) {
 		setLocation(position);
@@ -68,24 +78,22 @@ public class FoodSelectionFrame extends JFrame {
 		setContentPane(contentPane);
 		this.getContentPane().setLayout(null);
 
-		// FOOD ITEMS SELECTION
+		// User to select food item, after selecting food category
 		JLabel lblFood = new JLabel("What is your food item?");
 		lblFood.setForeground(Color.WHITE);
 		lblFood.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFood.setFont(new Font("Apple LiGothic", Font.PLAIN, 20));
 		lblFood.setBounds(414, 171, 330, 27);
 		lblFood.setVisible(false);
-
 		this.getContentPane().add(lblFood);
 
 		JComboBox cbFood = new JComboBox();
 		cbFood.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 13));
 		cbFood.setBounds(460, 210, 240, 27);
 		cbFood.setVisible(false);
-
 		this.getContentPane().add(cbFood);
 
-		// INPUT WEIGHT OF FOOD
+		// User to input weight of food, after selecting food category
 		JLabel lblWeight = new JLabel("How much of it do you eat?");
 		lblWeight.setForeground(Color.WHITE);
 		lblWeight.setHorizontalAlignment(SwingConstants.CENTER);
@@ -109,7 +117,7 @@ public class FoodSelectionFrame extends JFrame {
 		cbWeightUnit.setVisible(false);
 		this.getContentPane().add(cbWeightUnit);
 
-		// BUTTON TO RUN THE CALCULATIONS
+		// Button to run calculations based on user inputs, and move to next frame (ResultsFrame)
 		JButton btnFindOut = new JButton("Find Out!");
 		btnFindOut.setBackground(new Color(255, 182, 193));
 		btnFindOut.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
@@ -118,11 +126,12 @@ public class FoodSelectionFrame extends JFrame {
 		this.getContentPane().add(btnFindOut);
 		btnFindOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Check if the input weight is numeric
 				try {
-					double d = Double.parseDouble(weight.getText());
+					double w = Double.parseDouble(weight.getText());
+					// If a food item has been selected
 					if (!cbFood.getSelectedItem().equals("Choose one...")) {
 						String food = cbFood.getSelectedItem().toString();
-						double w = Double.parseDouble(weight.getText());
 						user.setFoodName(food);
 						if (cbWeightUnit.getSelectedItem().toString().equals("kg")) {
 							user.setFoodWeight(w);
@@ -133,16 +142,25 @@ public class FoodSelectionFrame extends JFrame {
 						ResultsFrame frame3 = new ResultsFrame(position, user);
 						frame3.setVisible(true);
 						setVisible(false);
-					} else {
+					}
+					// If no food item has been selected, prompt user to choose food
+					else {
 						JOptionPane.showMessageDialog(null, "Please choose a food item!");
 					}
 				} catch (NumberFormatException e2) {
-					JOptionPane.showMessageDialog(null, "Please key in a valid weight!");
+					// If user has not selected a food item and has not input weight
+					if (cbFood.getSelectedItem().equals("Choose one...")) {
+						JOptionPane.showMessageDialog(null, "Please choose a food item and key in a valid weight!");
+					}
+					// If user has selected a food item but has not input weight
+					else {
+						JOptionPane.showMessageDialog(null, "Please key in a valid weight!");
+					}
 				}
 			}
 		});
 
-		// FOOD CATEGORY SELECTION
+		// User to select food category
 		JLabel lblCategory = new JLabel("What category does your food fall under?");
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("Apple LiGothic", Font.PLAIN, 16));
@@ -155,20 +173,22 @@ public class FoodSelectionFrame extends JFrame {
 		cbFoodCategories.setBounds(460, 117, 240, 27);
 		cbFoodCategories.addItem("Choose one...");
 
-		/**
-		 * @author Xiaolu Read food group from the back end.
-		 */
+		// Add category types to Food Categories ComboBox from input csv
 		for (String s : new Calculator().generalGroupSelect(new FoodDataReader("FoodGHG.csv"))) {
 			cbFoodCategories.addItem(s);
 		}
-
 		this.getContentPane().add(cbFoodCategories);
 
+		// Check user's selection of food category
 		cbFoodCategories.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				
+				// User has selected a food category
 				if (!cbFoodCategories.getSelectedItem().toString().equals("Choose one...")) {
 					lblFood.setVisible(true);
 					cbFood.removeAllItems();
+					
+					// Add food items to Food ComboBox from input csv, based on the selected food category
 					Calculator c = new Calculator();
 					ArrayList<String> s = c.generalGroupSelect(new FoodDataReader("FoodGHG.csv"));
 					cbFood.addItem("Choose one...");
@@ -196,6 +216,7 @@ public class FoodSelectionFrame extends JFrame {
 				}
 			}
 		});
+		
 		// Import background image
 		BufferedImage backgroundImage = null;
 		String fileName = "chewpaca2.jpg";
@@ -209,12 +230,12 @@ public class FoodSelectionFrame extends JFrame {
 		Image originalImage = icon.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
-		JLabel welcomeBackground = new JLabel("");
-		welcomeBackground.setBackground(Color.WHITE);
-		welcomeBackground.setForeground(Color.DARK_GRAY);
-		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 800, 600);
-		this.getContentPane().add(welcomeBackground);
+		JLabel background = new JLabel("");
+		background.setBackground(Color.WHITE);
+		background.setForeground(Color.DARK_GRAY);
+		background.setIcon(new ImageIcon(resizedImage));
+		background.setBounds(0, 0, 800, 600);
+		this.getContentPane().add(background);
 	}
 
 }
