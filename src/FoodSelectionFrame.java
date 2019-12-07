@@ -20,7 +20,7 @@ public class FoodSelectionFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FoodSelectionFrame frame = new FoodSelectionFrame(new Point(100,100));
+					FoodSelectionFrame frame = new FoodSelectionFrame(new Point(100, 100), new User("", ""));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,20 +33,19 @@ public class FoodSelectionFrame extends JFrame {
 		return user;
 	}
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-
 	/**
 	 * Create the frame.
 	 */
-	public FoodSelectionFrame(Point position) {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100,100,800,600);
+	public FoodSelectionFrame(Point position, User user) {
 		setLocation(position);
+		setSize(800, 600);
+		setUser(user);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -54,11 +53,11 @@ public class FoodSelectionFrame extends JFrame {
 
 		// Resize background image to fit window
 		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca2.jpg"); // Only use absolute path for
-																						// testing purpose
+		// testing purpose
 		Image originalImage = welcomeMascot.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
-																										// fit
-																										// welcomeRightPanel
+		// fit
+		// welcomeRightPanel
 		this.getContentPane().setLayout(null);
 
 		// FOOD ITEMS SELECTION
@@ -109,26 +108,31 @@ public class FoodSelectionFrame extends JFrame {
 		btnFindOut.setBounds(506, 384, 145, 62);
 		btnFindOut.setVisible(false);
 		this.getContentPane().add(btnFindOut);
-		/**
-		 * @author Xiaolu
-		 * Add button functions to save user selection and move to next frame.
-		 */
 		btnFindOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String food = cbFood.getSelectedItem().toString();
-				double w = Double.parseDouble(weight.getText());
-				UserSelection u = new UserSelection(); //need to create the user and user selection object in the mainwindow 
-				u.setFood(food);
-				if(cbWeightUnit.getSelectedItem().toString().equals("kg")) {
-					u.setWeight(w);
+				try {
+					double d = Double.parseDouble(weight.getText());
+					if (!cbFood.getSelectedItem().equals("Choose one...")) {
+						String food = cbFood.getSelectedItem().toString();
+						double w = Double.parseDouble(weight.getText());
+						user.setFoodName(food);
+						if (cbWeightUnit.getSelectedItem().toString().equals("kg")) {
+							user.setFoodWeight(w);
+						} else {
+							user.setFoodWeight(w / 1000);
+						}
+						Point position = getLocation();
+						ResultsFrame frame3 = new ResultsFrame(position, user);
+						frame3.setVisible(true);
+						setVisible(false);
+					} else {
+						JOptionPane.showMessageDialog(null, "Please choose a food item!");
+					}
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(null, "Please key in a valid weight!");
 				}
-				else {
-					u.setWeight(w / 1000);
-				}
-				ResultsFrame rf = new ResultsFrame();
-				rf.setVisible(true);
-				setVisible(false);
-		}});
+			}
+		});
 
 		// FOOD CATEGORY SELECTION
 		JLabel lblCategory = new JLabel("What category does your food fall under?");
@@ -144,10 +148,9 @@ public class FoodSelectionFrame extends JFrame {
 		cbFoodCategories.addItem("Choose one...");
 
 		/**
-		 * @author Xiaolu 
-		 * Read food group from the back end.
+		 * @author Xiaolu Read food group from the back end.
 		 */
-		for(String s : new Calculator().generalGroupSelect(new FoodDataReader("FoodGHG.csv"))) {
+		for (String s : new Calculator().generalGroupSelect(new FoodDataReader("FoodGHG.csv"))) {
 			cbFoodCategories.addItem(s);
 		}
 
@@ -158,16 +161,13 @@ public class FoodSelectionFrame extends JFrame {
 				if (!cbFoodCategories.getSelectedItem().toString().equals("Choose one...")) {
 					lblFood.setVisible(true);
 					cbFood.removeAllItems();
-					/**
-					 * @author Xiaolu
-					 * read food contributes from backend. Have deleted the Hardcodes.
-					 */
 					Calculator c = new Calculator();
 					ArrayList<String> s = c.generalGroupSelect(new FoodDataReader("FoodGHG.csv"));
-					for(int i = 0; i < s.size(); i++) {
+					cbFood.addItem("Choose one...");
+					for (int i = 0; i < s.size(); i++) {
 						if (cbFoodCategories.getSelectedItem().equals(s.get(i))) {
 							ArrayList<String> a = c.foodGroupSelect(s.get(i));
-							for(int j = 0; j < a.size(); j++) {
+							for (int j = 0; j < a.size(); j++) {
 								cbFood.addItem(a.get(j));
 							}
 						}
@@ -189,7 +189,7 @@ public class FoodSelectionFrame extends JFrame {
 			}
 		});
 
-		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
+		// Background image
 		JLabel welcomeBackground = new JLabel("");
 		welcomeBackground.setIcon(new ImageIcon(resizedImage));
 		welcomeBackground.setBounds(0, 0, 806, 584);

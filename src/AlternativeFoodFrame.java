@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Point;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,6 +21,16 @@ import javax.swing.JButton;
 public class AlternativeFoodFrame extends JFrame {
 
 	private JPanel contentPane;
+	private User user;
+	
+	public User getUser() {
+		return this.user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 
 	/**
 	 * Launch the application.
@@ -28,7 +39,7 @@ public class AlternativeFoodFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AlternativeFoodFrame frame = new AlternativeFoodFrame();
+					AlternativeFoodFrame frame = new AlternativeFoodFrame(new Point(100,100), new User("",""));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,9 +51,11 @@ public class AlternativeFoodFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AlternativeFoodFrame() {
+	public AlternativeFoodFrame(Point position, User user) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setUser(user);
+		setSize(800, 600);
+		setLocation(position);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

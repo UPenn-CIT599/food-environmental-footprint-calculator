@@ -121,12 +121,10 @@ public class MainFrame extends JFrame {
 				// Start second frame
 				if (!txtUserName.getText().equals("Name")&&!txtUserName.getText().equals("")&&!txtUserEmail.getText().equals("Email")&&!txtUserEmail.getText().equals("")){
 					Point position = getLocation();
-					FoodSelectionFrame frame2 = new FoodSelectionFrame(position);
+					User user = new User(txtUserName.getText(),txtUserEmail.getText());
+					FoodSelectionFrame frame2 = new FoodSelectionFrame(position, user);
 					frame2.setVisible(true);
-					frame2.getUser().setName(txtUserName.getText());
-					frame2.getUser().setEmail(txtUserEmail.getText());
-					
-					dispose();
+					setVisible(false);
 				} else {
 					JOptionPane.showMessageDialog(null, "Don't be shy, tell me your name and email!");
 				}
@@ -151,7 +149,7 @@ public class MainFrame extends JFrame {
 		welcomeBackground.setBackground(Color.WHITE);
 		welcomeBackground.setForeground(Color.DARK_GRAY);
 		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 800, 578);
+		welcomeBackground.setBounds(0, 0, 800, 600);
 		this.getContentPane().add(welcomeBackground);
 
 

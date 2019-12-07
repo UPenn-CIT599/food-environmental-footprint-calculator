@@ -9,9 +9,9 @@ public class Calculator {
 	 * @param the user input food name 
 	 * @return GHG Emission of selected food
 	 */
-	public double getFoodGHGEmission(String name){
+	public double getFoodGHGEmission(String name, Double weight){
 		HashMap<String,Food> readData = new FoodDataReader ("FoodGHG.csv").getData();
-		double emission = readData.get(name).getCarbonEmissions();
+		double emission = readData.get(name).getCarbonEmissions() * weight;
 		return emission;
 	}
 	

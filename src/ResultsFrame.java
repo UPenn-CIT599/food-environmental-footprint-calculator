@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,7 +17,15 @@ import javax.swing.border.EmptyBorder;
 public class ResultsFrame extends JFrame {
 
 	private JPanel contentPane;
+	private User user;
 
+	public User getUser() {
+		return this.user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -24,7 +33,7 @@ public class ResultsFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResultsFrame frame = new ResultsFrame();
+					ResultsFrame frame = new ResultsFrame(new Point(100,100), new User("",""));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,33 +45,33 @@ public class ResultsFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultsFrame() {
+	public ResultsFrame(Point position, User user) {
+		setUser(user);
+		setLocation(position);
+		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		
+		this.user = user;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		// Hardcoded now, but to instantiate the variables with calculator function later
 		/**
 		 * @author Xiaolu
 		 * see the functions below
 		 */
-		UserSelection us = new UserSelection();//this should be the same userSelection object which has created last frame
-		                                         //Else it will throw null pointer exception.
 		Calculator c = new Calculator();
-		double weightKG = us.getWeight();
-		String selectedFood = us.getFood();
+		double weightKG = user.getFoodWeight();
+		String selectedFood = user.getFoodName();
 		double equivalentGHG = c.getFoodGHGEmission(selectedFood, weightKG);
 
 		// Overall description of user's GHG(eq) emissions
 		double annualGHG = c.getAnnualGHG(equivalentGHG);
-		String resultsString = "<html>If you eat "+ weightKG +" kg of " + selectedFood.toLowerCase() + " everyday for one year,<br> you will contribute to <b>" + equivalentGHG + "</b> kg of CO2(eq), <br>which is equivalent to...</html>";
+		String resultsString = "<html>If you eat "+ String.format("%.2f", weightKG) +" kg of " + selectedFood.toLowerCase() + " everyday for one year,<br> you will contribute to <b>" + String.format("%.2f", equivalentGHG) + "</b> kg of CO2(eq), <br>which is equivalent to...</html>";
 		JLabel results = new JLabel(resultsString);
 		results.setBackground(Color.WHITE);
 		results.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
-		results.setBounds(35, 37, 456, 140);
+		results.setBounds(35, 37, 700, 140);
 		results.setForeground(new Color(102, 205, 170));
 		this.getContentPane().add(results);
 
@@ -102,14 +111,15 @@ public class ResultsFrame extends JFrame {
 		 */
 		btnExploreAltFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AlternativeFoodFrame af = new AlternativeFoodFrame();
-				af.setVisible(true);
+				Point position = getLocation();
+				AlternativeFoodFrame frame4 = new AlternativeFoodFrame(position, user);
+				frame4.setVisible(true);
 				setVisible(false);
 			}
 		});
 
 		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("chewpaca3.jpg"); // Only use absolute path for testing purpose
+		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca3.jpg"); // Only use absolute path for testing purpose
 		Image originalImage = welcomeMascot.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to fit welcomeRightPanel
 		this.getContentPane().setLayout(null);
