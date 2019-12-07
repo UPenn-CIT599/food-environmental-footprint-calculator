@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 
 		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("chewpaca1.jpg"); // Only use absolute path for
+		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca1.jpg"); // Only use absolute path for
 																						// testing purpose
 		Image originalImage = welcomeMascot.getImage();
 		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
@@ -123,8 +123,8 @@ public class MainFrame extends JFrame {
 					Point position = getLocation();
 					FoodSelectionFrame frame2 = new FoodSelectionFrame(position);
 					frame2.setVisible(true);
-					frame2.setUserName(txtUserName.getText());
-					frame2.setUserEmail(txtUserEmail.getText());
+					frame2.getUser().setName(txtUserName.getText());
+					frame2.getUser().setEmail(txtUserEmail.getText());
 					
 					dispose();
 				} else {
