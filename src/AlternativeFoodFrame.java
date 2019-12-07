@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Point;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,12 +65,6 @@ public class AlternativeFoodFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
-		// Resize background image to fit window
-		ImageIcon backgroundImage = new ImageIcon("/Users/iris/Desktop/altFood.jpg"); // Only use absolute path for
-		Image originalImage = backgroundImage.getImage();
-		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image
-		this.getContentPane().setLayout(null);
 		contentPane.setLayout(null);
 
 		Calculator c = new Calculator();
@@ -417,10 +414,24 @@ public class AlternativeFoodFrame extends JFrame {
 		btnTryAgain.setBounds(90, 510, 120, 30);
 		contentPane.add(btnTryAgain);
 
-		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
+		// Import background image
+		BufferedImage backgroundImage = null;
+		String fileName = "altFood.jpg";
+		try {
+			URL url = getClass().getResource(fileName);
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e2) {
+			// null
+		}
+		ImageIcon icon = new ImageIcon(backgroundImage);
+		Image originalImage = icon.getImage();
+		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
+
 		JLabel welcomeBackground = new JLabel("");
+		welcomeBackground.setBackground(Color.WHITE);
+		welcomeBackground.setForeground(Color.DARK_GRAY);
 		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 806, 584);
+		welcomeBackground.setBounds(0, 0, 800, 600);
 		this.getContentPane().add(welcomeBackground);
 
 	}

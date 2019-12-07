@@ -6,7 +6,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +25,7 @@ public class ResultsFrame extends JFrame {
 	public User getUser() {
 		return this.user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -50,16 +53,13 @@ public class ResultsFrame extends JFrame {
 		setLocation(position);
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		this.user = user;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		/**
-		 * @author Xiaolu
-		 * see the functions below
-		 */
+
 		Calculator c = new Calculator();
 		double weightKG = user.getFoodWeight();
 		String selectedFood = user.getFoodName();
@@ -76,7 +76,7 @@ public class ResultsFrame extends JFrame {
 		this.getContentPane().add(results);
 
 		// Displays the GHG(eq) in terms of flight kilometres		
-		String flightString = "<html>... flying on a plane over <b>"+String.format("%.2f", c.getEquivalentFlightKM(annualGHG))+"</b> kilometre(s)";
+		String flightString = "<html>... flying on a plane over <b>"+String.format("%.0f", c.getEquivalentFlightKM(annualGHG))+"</b> kilometre(s)";
 		JLabel resultsFlightKM = new JLabel(flightString);
 		resultsFlightKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resultsFlightKM.setBounds(182, 206, 220, 70);
@@ -84,7 +84,7 @@ public class ResultsFrame extends JFrame {
 		this.getContentPane().add(resultsFlightKM);
 
 		// Displays the GHG(eq) in terms of lightbulb days
-		String lightbulbString = "<html>... powering a typical LED lightbulb for <b>"+String.format("%.2f", c.getEquivalentBulbLightDays(annualGHG))+"</b> day(s)";
+		String lightbulbString = "<html>... powering a typical LED lightbulb for <b>"+String.format("%.0f", c.getEquivalentBulbLightDays(annualGHG))+"</b> day(s)";
 		JLabel resultsLightbulbDays = new JLabel(lightbulbString);
 		resultsLightbulbDays.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resultsLightbulbDays.setBounds(271, 340, 220, 70);
@@ -92,7 +92,7 @@ public class ResultsFrame extends JFrame {
 		this.getContentPane().add(resultsLightbulbDays);
 
 		// Displays the GHG(eq) in terms of car kilometres		
-		String carString = "<html>... driving a passenger car for <b>"+String.format("%.2f", c.getCarKMEquivalent(annualGHG))+"</b> kilometre(s)";
+		String carString = "<html>... driving a passenger car for <b>"+String.format("%.0f", c.getCarKMEquivalent(annualGHG))+"</b> kilometre(s)";
 		JLabel resultsCarKM = new JLabel(carString);
 		resultsCarKM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resultsCarKM.setBounds(105, 452, 200, 70);
@@ -105,7 +105,7 @@ public class ResultsFrame extends JFrame {
 		btnExploreAltFood.setForeground(Color.BLACK);
 		btnExploreAltFood.setBounds(597, 301, 150, 70);
 		this.getContentPane().add(btnExploreAltFood);
-		
+
 		btnExploreAltFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Point position = getLocation();
@@ -115,18 +115,25 @@ public class ResultsFrame extends JFrame {
 			}
 		});
 
-		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca3.jpg"); // Only use absolute path for testing purpose
-		Image originalImage = welcomeMascot.getImage();
-		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to fit welcomeRightPanel
-		this.getContentPane().setLayout(null);
+		// Import background image
+		BufferedImage backgroundImage = null;
+		String fileName = "chewpaca3.jpg";
+		try {
+			URL url = getClass().getResource(fileName);
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e2) {
+			// null
+		}
+		ImageIcon icon = new ImageIcon(backgroundImage);
+		Image originalImage = icon.getImage();
+		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
-		JLabel backgroundImage = new JLabel("");
-		backgroundImage.setBackground(Color.WHITE);
-		backgroundImage.setForeground(Color.DARK_GRAY);
-		backgroundImage.setIcon(new ImageIcon(resizedImage));
-		backgroundImage.setBounds(0, 0, 800, 600);
-		this.getContentPane().add(backgroundImage);
+		JLabel welcomeBackground = new JLabel("");
+		welcomeBackground.setBackground(Color.WHITE);
+		welcomeBackground.setForeground(Color.DARK_GRAY);
+		welcomeBackground.setIcon(new ImageIcon(resizedImage));
+		welcomeBackground.setBounds(0, 0, 800, 600);
+		this.getContentPane().add(welcomeBackground);
 
 	}
 }

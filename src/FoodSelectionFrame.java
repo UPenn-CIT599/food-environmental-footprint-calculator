@@ -8,8 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -46,6 +49,7 @@ public class FoodSelectionFrame extends JFrame {
 	public User getUser() {
 		return this.user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -62,13 +66,6 @@ public class FoodSelectionFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		
-		ImageIcon backgroundJPG = new ImageIcon("/Users/iris/Desktop/chewpaca2.jpg"); // Only use absolute path for
-		Image originalImage = backgroundJPG.getImage();
-		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
-		// fit
-		// welcomeRightPanel
 		this.getContentPane().setLayout(null);
 
 		// FOOD ITEMS SELECTION
@@ -199,13 +196,25 @@ public class FoodSelectionFrame extends JFrame {
 				}
 			}
 		});
+		// Import background image
+		BufferedImage backgroundImage = null;
+		String fileName = "chewpaca2.jpg";
+		try {
+			URL url = getClass().getResource(fileName);
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e2) {
+			// null
+		}
+		ImageIcon icon = new ImageIcon(backgroundImage);
+		Image originalImage = icon.getImage();
+		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
 
-		// Background image
 		JLabel welcomeBackground = new JLabel("");
+		welcomeBackground.setBackground(Color.WHITE);
+		welcomeBackground.setForeground(Color.DARK_GRAY);
 		welcomeBackground.setIcon(new ImageIcon(resizedImage));
-		welcomeBackground.setBounds(0, 0, 806, 584);
+		welcomeBackground.setBounds(0, 0, 800, 600);
 		this.getContentPane().add(welcomeBackground);
-
 	}
 
 }

@@ -6,7 +6,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,12 +20,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import java.beans.PropertyChangeListener;
+import java.net.URL;
 import java.beans.PropertyChangeEvent;
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
-
 
 	/**
 	 * Launch the application.
@@ -41,7 +43,6 @@ public class MainFrame extends JFrame {
 		});
 	}
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -52,14 +53,6 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		// Resize background image to fit window
-		ImageIcon welcomeMascot = new ImageIcon("/Users/iris/Desktop/chewpaca1.jpg"); // Only use absolute path for
-																						// testing purpose
-		Image originalImage = welcomeMascot.getImage();
-		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH); // Resize image to
-																										// fit
-																										// welcomeRightPanel
 
 		// Welcome title, displaying the name of the project "FOOD ENVIRONMENTAL
 		// FOOTPRINT CALCULATOR"
@@ -108,20 +101,19 @@ public class MainFrame extends JFrame {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		txtUserEmail.setBounds(123, 418, 255, 26);
 		this.getContentPane().add(txtUserEmail);
-	
 
 		// Button to move to next frame, if users input information correctly
 		/**
-		 * @author Xiaolu 
-		 * Add function to move to next frame
+		 * @author Xiaolu Add function to move to next frame
 		 */
 		JButton letsGo = new JButton("Let's go!");
 		letsGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Start second frame
-				if (!txtUserName.getText().equals("Name")&&!txtUserName.getText().equals("")&&!txtUserEmail.getText().equals("Email")&&!txtUserEmail.getText().equals("")){
+				if (!txtUserName.getText().equals("Name") && !txtUserName.getText().equals("")
+						&& !txtUserEmail.getText().equals("Email") && !txtUserEmail.getText().equals("")) {
 					Point position = getLocation();
-					User user = new User(txtUserName.getText(),txtUserEmail.getText());
+					User user = new User(txtUserName.getText(), txtUserEmail.getText());
 					FoodSelectionFrame frame2 = new FoodSelectionFrame(position, user);
 					frame2.setVisible(true);
 					setVisible(false);
@@ -129,7 +121,7 @@ public class MainFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "Don't be shy, tell me your name and email!");
 				}
 			}
-				
+
 		});
 		letsGo.setBackground(new Color(255, 182, 193));
 		letsGo.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -145,6 +137,20 @@ public class MainFrame extends JFrame {
 		this.getContentPane().add(teamName1);
 
 		// Welcome background of main window, showing Chewpaca the Alpaca's illustration
+
+		// Import background image
+		BufferedImage backgroundImage = null;
+		String fileName = "chewpaca1.jpg";
+		try {
+			URL url = getClass().getResource(fileName);
+			backgroundImage = ImageIO.read(url);
+		} catch (Exception e2) {
+			// null
+		}
+		ImageIcon icon = new ImageIcon(backgroundImage);
+		Image originalImage = icon.getImage();
+		Image resizedImage = originalImage.getScaledInstance(800, 600, java.awt.Image.SCALE_SMOOTH);
+		
 		JLabel welcomeBackground = new JLabel("");
 		welcomeBackground.setBackground(Color.WHITE);
 		welcomeBackground.setForeground(Color.DARK_GRAY);
@@ -152,8 +158,6 @@ public class MainFrame extends JFrame {
 		welcomeBackground.setBounds(0, 0, 800, 600);
 		this.getContentPane().add(welcomeBackground);
 
-
-		
 	}
 
 }
