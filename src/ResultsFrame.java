@@ -105,10 +105,7 @@ public class ResultsFrame extends JFrame {
 		btnExploreAltFood.setForeground(Color.BLACK);
 		btnExploreAltFood.setBounds(597, 301, 150, 70);
 		this.getContentPane().add(btnExploreAltFood);
-		/**
-		 * @author Xiaolu
-		 * Add listener for this button
-		 */
+		
 		btnExploreAltFood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Point position = getLocation();
