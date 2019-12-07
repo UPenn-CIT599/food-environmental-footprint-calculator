@@ -405,6 +405,7 @@ public class AlternativeFoodFrame extends JFrame {
 		btnEmailResults.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					new PDFGenerator().createPdf("results.pdf", user);
 					SendEmail mail = new SendEmail(user.getEmail());
 				} catch (GeneralSecurityException e1) {
 					// TODO Auto-generated catch block
@@ -414,12 +415,6 @@ public class AlternativeFoodFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, "The email has been sent to " + user.getEmail() + ".");
 			}
 		});
-
-		JButton btnDownloadPDF = new JButton("Download PDF");
-		btnDownloadPDF.setBackground(new Color(0, 191, 255));
-		btnDownloadPDF.setOpaque(true);
-		btnDownloadPDF.setBounds(90, 480, 120, 30);
-		contentPane.add(btnDownloadPDF);
 
 		JButton btnTryAgain = new JButton("Try Again");
 		btnTryAgain.setBackground(new Color(102, 205, 170));

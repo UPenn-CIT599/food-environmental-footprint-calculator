@@ -25,7 +25,7 @@ import com.sun.mail.util.MailSSLSocketFactory;
 public class SendEmail {
 	
 	 public static void main(String [] args) throws GeneralSecurityException {
-		 SendEmail e = new SendEmail("selphie.dou@icloud.com");//for texting.
+		 SendEmail e = new SendEmail("selphie.dou@icloud.com");//my email for testing.
 	 }
 	
 	public SendEmail(String mailaddress) throws GeneralSecurityException {
@@ -70,7 +70,8 @@ public class SendEmail {
             multipart.addBodyPart(messageBodyPart);//add the text part
             //add the attachment
             messageBodyPart = new MimeBodyPart();
-            File file = new File("altFood.jpg");//add the address of the pdf(generated)
+            // the PDF absolute address 
+            File file = new File("/Users/hastuko/eclipse-workspace/Final Project 591/GreenfoodSuggestion.pdf");//add the address of the pdf(generated)
             DataSource source = new FileDataSource(file);
             messageBodyPart.setDataHandler(new DataHandler(source));
             String filename = "report";//set the name for the attachment
