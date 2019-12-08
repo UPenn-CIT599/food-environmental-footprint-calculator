@@ -388,16 +388,17 @@ public class AlternativeFoodFrame extends JFrame {
 
 		btnEmailResults.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				try {
 					new PDFGenerator().createPdf("results.pdf", user);
+				} catch (java.io.IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
 					SendEmail mail = new SendEmail(user.getEmail());
 					// Send the user a notice of email
 					JOptionPane.showMessageDialog(null, "The email has been sent to " + user.getEmail() + ".");
 
-				} catch (java.io.IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (GeneralSecurityException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
