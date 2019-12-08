@@ -138,6 +138,15 @@ public class AlternativeFoodFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AlternativeFoodFrame(Point position, User user) {
+			
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setUser(user);
+		setSize(800, 600);
+		setLocation(position);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		// Create fonts
 		
@@ -149,16 +158,7 @@ public class AlternativeFoodFrame extends JFrame {
 		Font chalkduster12 = new ImportFont().createFont("fonts/Chalkduster.ttf", 12);
 		
 		Font chalkboard13 = new ImportFont().createFont("fonts/chalkboard.ttf", 13);
-		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setUser(user);
-		setSize(800, 600);
-		setLocation(position);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 
 		// Generate 3 recommended food items based on user's input
 		Calculator c = new Calculator();

@@ -51,22 +51,20 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 
-		// Create fonts
-		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
-		Font appleLG36 = new ImportFont().createFont("fonts/appleLG.ttf", 36);
-		
-		Font hiragino12 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 12);
-		Font hiragino16 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 16);
-		Font hiragino20 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 20);
-		
-	
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+
+		// Create fonts
+		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
+		Font appleLG36 = new ImportFont().createFont("fonts/appleLG.ttf", 36);
+
+		Font hiragino12 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 12);
+		Font hiragino16 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 16);
+		Font hiragino20 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 20);
 
 		// Welcome title displaying name of the application (first line)
 		JLabel welcomeTitle1 = new JLabel();
