@@ -1,4 +1,6 @@
 import java.awt.Font;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class ImportFont {
