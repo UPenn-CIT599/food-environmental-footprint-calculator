@@ -64,23 +64,24 @@ public class SendEmail {
             message.setSubject("Your Personal Report of Eco-Diet.");
             // set bodypart
             BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Dear" + "userinputname");
+            messageBodyPart.setText("PLease see the attachment for you personal eco-food suggestion.");
+            
             //set muti body part to add attachment
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);//add the text part
             //add the attachment
             messageBodyPart = new MimeBodyPart();
             // the PDF absolute address 
-            File file = new File("/Users/hastuko/eclipse-workspace/Final Project 591/GreenfoodSuggestion.pdf");//add the address of the pdf(generated)
+            File file = new File("results.pdf");//add the address of the pdf(generated)
             DataSource source = new FileDataSource(file);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            String filename = "report";//set the name for the attachment
+            String filename = "Personal Report";//set the name for the attachment
             messageBodyPart.setFileName(filename);
             multipart.addBodyPart(messageBodyPart);
          
             // set whole message part
             message.setContent(multipart );
- 
+
             // send message
             Transport.send(message);
             System.out.println("Sent message successfully!");
