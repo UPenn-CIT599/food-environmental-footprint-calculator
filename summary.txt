@@ -1,0 +1,76 @@
+Name of Project: Food Environmental Footprint Calculator
+Team Number: 50
+Team Members: Yi Xin Iris Tiong, Xiaolu Dou, Fucheng Cui
+GitHub Repo: https://github.com/UPenn-CIT599/final-project-food-environmental-footprint-calculator
+
+
+>>> Project Description
+
+To raise consumers’ awareness of the environmental impacts of their food intake, this program enables the user to generate an Environmental Footprint (EF) report based on his/her food intake. The user selects a food item from a predefined set of food options provided and input weight consumed, and the program then calculates the total EF based on an existing dataset of each food and their EF parameters. A list of recommended food alternatives and possible dishes is generated, and users can choose to receive their results in the form of a PDF via email. Chewpaca the eco-friendly Alpaca guides the user through the entire process.
+
+We used an MVC (Model-View-Controller) Framework to breakdown the whole project.
+
+
+>>> Work Breakdown
+
+Iris worked on the overall UI design, graphics, and the following classes:
+
+	Java Swing interface classes:
+	1. MainFrame.java
+	2. FoodSelectionFrame.java
+	3. ResultsFrame.java
+	4. AlternativeFoodFrame.java
+	Other supporting classes:
+	1. User.java
+	2. ImportFont.java
+
+Xiaolu worked on program design (CRCs), database collation (of dishes and pictures), using external packages and dealing with user input, including the following classes:
+	1. PDFgenerator.java
+	2. SendEmail.java
+	3. Dishes.java
+	4. DishDataReader.java
+	5. Some supplemental methods in Calculator.java
+
+Fucheng worked on database collation (of food information), main calculation functions, and JUnit testing, including the following classes:
+	1. AlternativeFoodFrameTest.java
+	2. Calculator.java
+	3. CalculatorTest.java
+	4. DishDataReaderTest.java
+	5. Food.java
+	6. FoodDataReader.java
+	7. FoodDataReaderTest.java
+
+
+>>> Credits
+
+Chewpaca the Alpaca image source:
+	1. https://www.vectorstock.com/royalty-free-vector/alpaca-llama-animal-cute-cartoon-funny-kawaii-vector-27857452
+
+Food and dishes emissions data used in the program from:
+	1. https://science.sciencemag.org/content/360/6392/987
+	2. http://orac.ghf.pccu.edu.tw/2_4.aspx
+
+Equivalent emissions data from:
+	1. CO2(eq) emissions from planes and passenger cars - US Environmental Protection Agency
+	2. CO2(eq) emissions from LED lightbulbs - University of Michigan Center of Sustainable Systems (css.umich.edu)
+
+Food calories data used in the program from:
+	1. https://www.calorieking.com/au/en/
+
+Dish pictures from:
+	1. https://www.bbcgoodfood.com/recipes
+	2. https://www.foodnetwork.com/
+
+Send Mail using JavaMail API:
+	1. https://www.oracle.com/technetwork/java/javamail/index.html
+	2. https://www.oracle.com/technetwork/articles/java/index-135046.html
+
+Create PDFs by using external iText.7.0.0:
+	1.https://itextpdf.com/en/resources/books/itext-7-jump-start-tutorial-java/we-start-installing-itext-7
+	2. https://github.com/itext/itext7
+
+Java Swing interface classes were built using WindowBuilder on Eclipse
+
+Guidance from the following people in CIT591 Fall 2019:
+	1. Prof. Arvind Bhusnurmath
+	2. Team 50's TA, Patrick McCauley
