@@ -8,7 +8,7 @@ class CalculatorTest {
 	void testGetFoodGHGEmission() {
 		Calculator c = new Calculator();
 		String name = "apples";
-		assertEquals(c.getFoodGHGEmission(name), 0.29);
+		assertEquals(c.getFoodGHGEmission(name,1.0), 0.29);
 	}
 
 	@Test
@@ -95,11 +95,6 @@ class CalculatorTest {
 
 	}
 
-	@Test
-	void testGetDishPicPath() {
-		Calculator c = new Calculator();
-		assertEquals(c.getDishPicPath("caesar salad"), "\"images/23.jpg\"");		
 
-	}
 
 }

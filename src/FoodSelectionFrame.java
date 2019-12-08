@@ -84,6 +84,13 @@ public class FoodSelectionFrame extends JFrame {
 	 */
 	public FoodSelectionFrame(Point position, User user) {
 
+		// Create fonts
+		Font appleLG16 = new ImportFont().createFont("fonts/appleLG.ttf", 16);
+		Font appleLG20 = new ImportFont().createFont("fonts/appleLG.ttf", 20);
+		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
+
+		Font hiragino12 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 12);
+		Font hiragino13 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 13);
 
 		setLocation(position);
 		setSize(800, 600);
@@ -94,15 +101,6 @@ public class FoodSelectionFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.getContentPane().setLayout(null);
-		
-		// Create fonts
-		Font appleLG16 = new ImportFont().createFont("fonts/appleLG.ttf", 16);
-		Font appleLG20 = new ImportFont().createFont("fonts/appleLG.ttf", 20);
-		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
-
-		Font hiragino12 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 12);
-		Font hiragino13 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 13);
-
 
 		// User to select food item, after selecting food category
 		JLabel lblFood = new JLabel("What is your food item?");

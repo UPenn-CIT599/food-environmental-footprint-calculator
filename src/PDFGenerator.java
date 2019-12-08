@@ -22,18 +22,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * 
+ * Simple List example.
  */
 public class PDFGenerator {
-	
-	private static final String DEST = "result.pdf"; // The path of the pdf file
-	
-    public static void main(String[] args) throws IOException {
-    	User user = new User("Selphie", "selphie.dou@icloud.com");
-    	user.setFoodName("milk");
-    	user.setFoodWeight(0.3);
-    	new PDFGenerator().createPdf("results.pdf", user);
-	}
+
+	private static final String DEST = "GreenfoodSuggestion.pdf"; // The path of the pdf file
 
 	public void createPdf(String dest, User user) throws IOException {
 		// Initialize PDF writer
@@ -123,30 +116,26 @@ public class PDFGenerator {
 		table1.addCell(new Cell().add(c.getDishCategory(a1.get(0))));
 		table1.addCell(new Cell().add(String.valueOf(c.getDishGHSEmission(a1.get(0)))));
 		//Add pictures
-		String f1 = "src/" + c.getDishPicPath(a1.get(0));
+		String f1 = c.getDishPicPath(a1.get(0));
 		Image pic1 = new Image(ImageDataFactory.create(f1));
 		pic1.setAutoScaleHeight(true);
 		table1.addCell(new Cell().add(pic1));
 		
-		if(!a2.equals(a1)) {
-			table1.addCell(new Cell().add(a2.get(0)));
-			table1.addCell(new Cell().add(c.getDishCategory(a2.get(0))));
-			table1.addCell(new Cell().add(String.valueOf(c.getDishGHSEmission(a2.get(0)))));
-			String f2 = "src/" +c.getDishPicPath(a2.get(0));
-			Image pic2 = new Image(ImageDataFactory.create(f2));
-			pic2.setAutoScaleHeight(true);
-			table1.addCell(new Cell().add(pic2));
-		}
+		table1.addCell(new Cell().add(a2.get(0)));
+		table1.addCell(new Cell().add(c.getDishCategory(a2.get(0))));
+		table1.addCell(new Cell().add(String.valueOf(c.getDishGHSEmission(a2.get(0)))));
+		String f2 = c.getDishPicPath(a2.get(0));
+		Image pic2 = new Image(ImageDataFactory.create(f2));
+		pic2.setAutoScaleHeight(true);
+		table1.addCell(new Cell().add(pic2));
 		
-		if(!a3.equals(a1) && !a3.equals(a2)) {
-			table1.addCell(new Cell().add(a3.get(0)));
-			table1.addCell(new Cell().add(c.getDishCategory(a3.get(0))));
-			table1.addCell(new Cell().add(String.valueOf(c.getDishGHSEmission(a3.get(0)))));
-			String f3 = "src/" +c.getDishPicPath(a3.get(0));
-			Image pic3 = new Image(ImageDataFactory.create(f3));
-			pic3.setAutoScaleHeight(true);
-			table1.addCell(new Cell().add(pic3));
-		}
+		table1.addCell(new Cell().add(a3.get(0)));
+		table1.addCell(new Cell().add(c.getDishCategory(a3.get(0))));
+		table1.addCell(new Cell().add(String.valueOf(c.getDishGHSEmission(a3.get(0)))));
+		String f3 = c.getDishPicPath(a3.get(0));
+		Image pic3 = new Image(ImageDataFactory.create(f3));
+		pic3.setAutoScaleHeight(true);
+		table1.addCell(new Cell().add(pic3));
 		
 		document.add(table1);
 
