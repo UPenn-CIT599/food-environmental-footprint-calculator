@@ -30,7 +30,7 @@ public class PDFGenerator {
 	
     public static void main(String[] args) throws IOException {
     	User user = new User("Selphie", "selphie.dou@icloud.com");
-    	user.setFoodName("milk");
+    	user.setFoodName("eggs");
     	user.setFoodWeight(0.3);
     	new PDFGenerator().createPdf("results.pdf", user);
 	}
