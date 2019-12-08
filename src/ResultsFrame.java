@@ -60,6 +60,10 @@ public class ResultsFrame extends JFrame {
 	 * Create the frame
 	 */
 	public ResultsFrame(Point position, User user) {
+
+		// Create fonts
+		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
+
 		setUser(user);
 		setLocation(position);
 		setSize(800, 600);
@@ -82,7 +86,7 @@ public class ResultsFrame extends JFrame {
 				+ String.format("%.2f", equivalentGHG) + "</b> kg of CO2(eq), <br>which is equivalent to...</html>";
 		JLabel results = new JLabel(resultsString);
 		results.setBackground(Color.WHITE);
-		results.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
+		results.setFont(appleLG25);
 		results.setBounds(35, 37, 700, 140);
 		results.setForeground(new Color(102, 205, 170));
 		this.getContentPane().add(results);
@@ -116,7 +120,7 @@ public class ResultsFrame extends JFrame {
 
 		// Button to click to display the next frame (AlternativeFoodFrame)
 		JButton btnExploreAltFood = new JButton("Tell me more!");
-		btnExploreAltFood.setFont(new Font("Apple LiGothic", Font.BOLD, 25));
+		btnExploreAltFood.setFont(appleLG25);
 		btnExploreAltFood.setBackground(new Color(238, 232, 170));
 		btnExploreAltFood.setForeground(Color.BLACK);
 		btnExploreAltFood.setBounds(597, 301, 150, 70);

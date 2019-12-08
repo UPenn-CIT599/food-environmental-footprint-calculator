@@ -138,6 +138,19 @@ public class AlternativeFoodFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AlternativeFoodFrame(Point position, User user) {
+		
+		// Create fonts
+		
+		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
+		Font appleLG35 = new ImportFont().createFont("fonts/appleLG.ttf", 35);
+		
+		Font hiragino13 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 13);
+		
+		Font chalkduster12 = new ImportFont().createFont("fonts/Chalkduster.ttf", 12);
+		
+		Font chalkboard13 = new ImportFont().createFont("fonts/chalkboard.ttf", 13);
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUser(user);
 		setSize(800, 600);
@@ -172,7 +185,7 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishOne.setVisible(false);
 
 		JLabel lblDishOne = new JLabel("<html>dish1</html>");
-		lblDishOne.setFont(new Font("Chalkduster", Font.PLAIN, 12));
+		lblDishOne.setFont(chalkduster12);
 		lblDishOne.setForeground(Color.WHITE);
 		lblDishOne.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDishOne.setBounds(350, 260, 100, 50);
@@ -189,7 +202,7 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishTwo.setVisible(false);
 
 		JLabel lblDishTwo = new JLabel("<html>dish2</html>");
-		lblDishTwo.setFont(new Font("Chalkduster", Font.PLAIN, 12));
+		lblDishTwo.setFont(chalkduster12);
 		lblDishTwo.setForeground(Color.WHITE);
 		lblDishTwo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDishTwo.setBounds(490, 260, 100, 50);
@@ -206,7 +219,7 @@ public class AlternativeFoodFrame extends JFrame {
 		imgDishThree.setVisible(false);
 
 		JLabel lblDishThree = new JLabel("<html>dish3</html>");
-		lblDishThree.setFont(new Font("Chalkduster", Font.PLAIN, 12));
+		lblDishThree.setFont(chalkduster12);
 		lblDishThree.setForeground(Color.WHITE);
 		lblDishThree.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDishThree.setBounds(630, 260, 100, 50);
@@ -302,7 +315,7 @@ public class AlternativeFoodFrame extends JFrame {
 				}
 			}
 		});
-		cbRecipes.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 13));
+		cbRecipes.setFont(hiragino13);
 		cbRecipes.setBounds(463, 111, 156, 27);
 		cbRecipes.addItem("Choose one...");
 		cbRecipes.addItem(capitalise(recommendedFoodOne));
@@ -315,14 +328,14 @@ public class AlternativeFoodFrame extends JFrame {
 				"<html>Instead of " + user.getFoodName().toLowerCase() + ",<br>you can try:</html>");
 		lblAltFood.setVerticalAlignment(SwingConstants.TOP);
 		lblAltFood.setForeground(new Color(102, 205, 170));
-		lblAltFood.setFont(new Font("Apple LiGothic", Font.PLAIN, 35));
+		lblAltFood.setFont(appleLG35);
 		lblAltFood.setBounds(42, 35, 248, 124);
 		contentPane.add(lblAltFood);
 
 		// Recommended food #1
 		String recommendationOneName = "<html>#1 " + recommendedFoodOne.toUpperCase() + "</html>";
 		JLabel lblFoodOneName = new JLabel(recommendationOneName);
-		lblFoodOneName.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
+		lblFoodOneName.setFont(appleLG25);
 		lblFoodOneName.setForeground(Color.WHITE);
 		lblFoodOneName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodOneName.setBounds(42, 150, 237, 44);
@@ -333,7 +346,7 @@ public class AlternativeFoodFrame extends JFrame {
 				+ " kcal</b>.</html>";
 		JLabel lblFoodOneMetrices = new JLabel(recommendationOneMetrices);
 		lblFoodOneMetrices.setVerticalAlignment(SwingConstants.TOP);
-		lblFoodOneMetrices.setFont(new Font("Chalkboard", Font.PLAIN, 13));
+		lblFoodOneMetrices.setFont(chalkboard13);
 		lblFoodOneMetrices.setForeground(new Color(245, 245, 245));
 		lblFoodOneMetrices.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodOneMetrices.setBounds(42, 185, 248, 51);
@@ -342,7 +355,7 @@ public class AlternativeFoodFrame extends JFrame {
 		// Recommended food #2
 		String recommendationTwoName = "<html>#2 " + recommendedFoodTwo.toUpperCase() + "</html>";
 		JLabel lblFoodTwoName = new JLabel(recommendationTwoName);
-		lblFoodTwoName.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
+		lblFoodTwoName.setFont(appleLG25);
 		lblFoodTwoName.setForeground(Color.WHITE);
 		lblFoodTwoName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodTwoName.setBounds(42, 240, 237, 44);
@@ -353,7 +366,7 @@ public class AlternativeFoodFrame extends JFrame {
 				+ " kcal</b>.</html>";
 		JLabel lblFoodTwoMetrices = new JLabel(recommendationTwoMetrices);
 		lblFoodTwoMetrices.setForeground(new Color(245, 245, 245));
-		lblFoodTwoMetrices.setFont(new Font("Chalkboard", Font.PLAIN, 13));
+		lblFoodTwoMetrices.setFont(chalkboard13);
 		lblFoodTwoMetrices.setVerticalAlignment(SwingConstants.TOP);
 		lblFoodTwoMetrices.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodTwoMetrices.setBounds(42, 275, 248, 51);
@@ -362,7 +375,7 @@ public class AlternativeFoodFrame extends JFrame {
 		// Recommended food #3
 		String recommendationThreeName = "<html>#3 " + recommendedFoodThree.toUpperCase() + "</html>";
 		JLabel lblFoodThreeName = new JLabel(recommendationThreeName);
-		lblFoodThreeName.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
+		lblFoodThreeName.setFont(appleLG25);
 		lblFoodThreeName.setForeground(Color.WHITE);
 		lblFoodThreeName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodThreeName.setBounds(42, 330, 237, 44);
@@ -373,7 +386,7 @@ public class AlternativeFoodFrame extends JFrame {
 				+ " kcal</b>.</html>";
 		JLabel lblFoodThreeMetrices = new JLabel(recommendationThreeMetrices);
 		lblFoodThreeMetrices.setVerticalAlignment(SwingConstants.TOP);
-		lblFoodThreeMetrices.setFont(new Font("Chalkboard", Font.PLAIN, 13));
+		lblFoodThreeMetrices.setFont(chalkboard13);
 		lblFoodThreeMetrices.setForeground(new Color(245, 245, 245));
 		lblFoodOneMetrices.setForeground(new Color(245, 245, 245));
 		lblFoodThreeMetrices.setHorizontalAlignment(SwingConstants.LEFT);

@@ -2,11 +2,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -19,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import java.net.URL;
 
 public class MainFrame extends JFrame {
@@ -46,14 +51,15 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 
-		// Create fonts DO LATER
-		/**
-		 * InputStream is = MainFrame.class.getResourceAsStream("TestFont.ttf"); Font
-		 * font = Font.createFont(Font.TRUETYPE_FONT, is); This loaded font has no
-		 * predefined font settings so to use, you would have to do:
-		 * 
-		 * Font sizedFont = font.deriveFont(12f); myLabel.setFont(sizedFont);
-		 **/
+		// Create fonts
+		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
+		Font appleLG36 = new ImportFont().createFont("fonts/appleLG.ttf", 36);
+		
+		Font hiragino12 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 12);
+		Font hiragino16 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 16);
+		Font hiragino20 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 20);
+		
+	
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -64,7 +70,7 @@ public class MainFrame extends JFrame {
 
 		// Welcome title displaying name of the application (first line)
 		JLabel welcomeTitle1 = new JLabel();
-		welcomeTitle1.setFont(new Font("Apple LiGothic", Font.PLAIN, 36));
+		welcomeTitle1.setFont(appleLG36);
 		welcomeTitle1.setForeground(Color.WHITE);
 		welcomeTitle1.setOpaque(false);
 		welcomeTitle1.setText("<html>Food Environmental");
@@ -72,7 +78,7 @@ public class MainFrame extends JFrame {
 
 		// Welcome title displaying name of the application (second line)
 		JLabel welcomeTitle2 = new JLabel();
-		welcomeTitle2.setFont(new Font("Apple LiGothic", Font.PLAIN, 36));
+		welcomeTitle2.setFont(appleLG36);
 		welcomeTitle2.setForeground(Color.WHITE);
 		welcomeTitle2.setOpaque(false);
 		welcomeTitle2.setText("Footprint Calculator");
@@ -92,13 +98,13 @@ public class MainFrame extends JFrame {
 		JLabel introChewpaca = new JLabel(
 				"<html><i>HEE-HAW!</i> I'm Chewpaca, the friendliest and greenest alpaca in the world! Tell me about yourself to get started.</html>");
 		introChewpaca.setHorizontalAlignment(SwingConstants.CENTER);
-		introChewpaca.setFont(new Font("Hiragino Sans GB", Font.BOLD, 20));
+		introChewpaca.setFont(hiragino20);
 		introChewpaca.setBounds(65, 200, 361, 149);
 		this.getContentPane().add(introChewpaca);
 
 		// Input fields for user's name
 		JTextField txtUserName = new JTextField("Name");
-		txtUserName.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
+		txtUserName.setFont(hiragino16);
 		txtUserName.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		txtUserName.setBounds(123, 383, 255, 26);
@@ -106,7 +112,7 @@ public class MainFrame extends JFrame {
 
 		// Input field for user's email address
 		JTextField txtUserEmail = new JTextField("Email");
-		txtUserEmail.setFont(new Font("Hiragino Sans GB", Font.PLAIN, 16));
+		txtUserEmail.setFont(hiragino16);
 		txtUserEmail.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 1),
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		txtUserEmail.setBounds(123, 418, 255, 26);
@@ -115,7 +121,7 @@ public class MainFrame extends JFrame {
 		// Button to move to the next frame (FoodSelectionFrame)
 		JButton letsGo = new JButton("Let's go!");
 		letsGo.setBackground(new Color(255, 182, 193));
-		letsGo.setFont(new Font("Apple LiGothic", Font.PLAIN, 25));
+		letsGo.setFont(appleLG25);
 		letsGo.setBounds(199, 456, 117, 61);
 		getContentPane().add(letsGo);
 		letsGo.addActionListener(new ActionListener() {
@@ -142,7 +148,7 @@ public class MainFrame extends JFrame {
 		// Small credits to ourselves
 		JLabel teamName1 = new JLabel(
 				"<html>(Brought to you by the really environmentally-friendly people of CIT591 Fall 2019 Team 50)</html>");
-		teamName1.setFont(new Font("Hiragino Sans GB", Font.BOLD, 12));
+		teamName1.setFont(hiragino12);
 		teamName1.setForeground(Color.WHITE);
 		teamName1.setBounds(580, 62, 200, 100);
 		this.getContentPane().add(teamName1);
