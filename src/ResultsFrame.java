@@ -61,8 +61,6 @@ public class ResultsFrame extends JFrame {
 	 */
 	public ResultsFrame(Point position, User user) {
 
-		// Create fonts
-		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
 
 		setUser(user);
 		setLocation(position);
@@ -72,6 +70,10 @@ public class ResultsFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		// Create fonts
+		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
+
 
 		// Calculate the GHG(eq) emissions based on user's inputs
 		Calculator c = new Calculator();
