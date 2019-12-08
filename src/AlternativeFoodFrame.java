@@ -141,8 +141,8 @@ public class AlternativeFoodFrame extends JFrame {
 		
 		// Create fonts
 		
-		Font appleLG25 = new ImportFont().createFont("fonts/appleLG.ttf", 25);
-		Font appleLG35 = new ImportFont().createFont("fonts/appleLG.ttf", 35);
+		Font appleLG20 = new ImportFont().createFont("fonts/appleLG.ttf", 20);
+		Font appleLG30 = new ImportFont().createFont("fonts/appleLG.ttf", 30);
 		
 		Font hiragino13 = new ImportFont().createFont("fonts/Hiragino Sans GB W3.ttf", 13);
 		
@@ -328,14 +328,14 @@ public class AlternativeFoodFrame extends JFrame {
 				"<html>Instead of " + user.getFoodName().toLowerCase() + ",<br>you can try:</html>");
 		lblAltFood.setVerticalAlignment(SwingConstants.TOP);
 		lblAltFood.setForeground(new Color(102, 205, 170));
-		lblAltFood.setFont(appleLG35);
+		lblAltFood.setFont(appleLG30);
 		lblAltFood.setBounds(42, 35, 248, 124);
 		contentPane.add(lblAltFood);
 
 		// Recommended food #1
 		String recommendationOneName = "<html>#1 " + recommendedFoodOne.toUpperCase() + "</html>";
 		JLabel lblFoodOneName = new JLabel(recommendationOneName);
-		lblFoodOneName.setFont(appleLG25);
+		lblFoodOneName.setFont(appleLG20);
 		lblFoodOneName.setForeground(Color.WHITE);
 		lblFoodOneName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodOneName.setBounds(42, 150, 237, 44);
@@ -355,7 +355,7 @@ public class AlternativeFoodFrame extends JFrame {
 		// Recommended food #2
 		String recommendationTwoName = "<html>#2 " + recommendedFoodTwo.toUpperCase() + "</html>";
 		JLabel lblFoodTwoName = new JLabel(recommendationTwoName);
-		lblFoodTwoName.setFont(appleLG25);
+		lblFoodTwoName.setFont(appleLG20);
 		lblFoodTwoName.setForeground(Color.WHITE);
 		lblFoodTwoName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodTwoName.setBounds(42, 240, 237, 44);
@@ -375,7 +375,7 @@ public class AlternativeFoodFrame extends JFrame {
 		// Recommended food #3
 		String recommendationThreeName = "<html>#3 " + recommendedFoodThree.toUpperCase() + "</html>";
 		JLabel lblFoodThreeName = new JLabel(recommendationThreeName);
-		lblFoodThreeName.setFont(appleLG25);
+		lblFoodThreeName.setFont(appleLG20);
 		lblFoodThreeName.setForeground(Color.WHITE);
 		lblFoodThreeName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFoodThreeName.setBounds(42, 330, 237, 44);
