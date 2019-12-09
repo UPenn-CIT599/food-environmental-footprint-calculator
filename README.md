@@ -46,3 +46,49 @@ You can choose to receive an email that records all the results of this test by 
 ![alt text](https://github.com/UPenn-CIT599/final-project-food-environmental-footprint-calculator/blob/master/src/images/email.png "Email successful")
 
 ![alt text](https://github.com/UPenn-CIT599/final-project-food-environmental-footprint-calculator/blob/master/src/images/pdf.png "PDF report")
+
+
+#### Credits
+
+<dl>
+  <dt>1. Chewpaca the Alpaca image source:</dt>
+<dd>https://www.vectorstock.com/royalty-free-vector/alpaca-llama-animal-cute-cartoon-funny-kawaii-vector-27857452</dd>
+
+  <dt>2. Macchu Picchu image:</dt>
+  <dd>Taken by team member Iris Tiong on a Latin America backpacking trip in 2015</dd>
+
+<dt>3. Food and dishes emissions data used in the program from:</dt>
+
+<dd>1. https://science.sciencemag.org/content/360/6392/987</dd>
+<dd>2. http://orac.ghf.pccu.edu.tw/2_4.aspx</dd>
+
+<dt>4. Equivalent emissions data from:</dt>
+
+<dd>1. CO2(eq) emissions from planes and passenger cars - US Environmental Protection Agency</dd>
+<dd>2. CO2(eq) emissions from LED lightbulbs - University of Michigan Center of Sustainable Systems (css.umich.edu)</dd>
+
+<dt>5. Food calories data used in the program from:</dt>
+
+<dd>1. https://www.calorieking.com/au/en/</dd>
+
+<dt>6. Dish pictures from:</dt>
+
+<dd>1. https://www.bbcgoodfood.com/recipes</dd>
+<dd>2. https://www.foodnetwork.com/</dd>
+
+<dt>7. Send Mail using JavaMail API:</dt>
+
+<dd>1. https://www.oracle.com/technetwork/java/javamail/index.html</dd>
+<dd>2. https://www.oracle.com/technetwork/articles/java/index-135046.html</dd>
+
+<dt>8. Create PDFs by using external iText.7.0.0:</dt>
+
+<dd>1. https://itextpdf.com/en/resources/books/itext-7-jump-start-tutorial-java/we-start-installing-itext-7</dd>
+  <dd>2. https://github.com/itext/itext7</dd>
+
+<dt>9. Java Swing interface classes were built using WindowBuilder on Eclipse</dt>
+
+<dt>Guidance from the following people in CIT591 Fall 2019:</dt>
+
+<dd>	1. Prof. Arvind Bhusnurmath</dd>
+<dd>	2. Team 50's TA, Patrick McCauley</dd>
