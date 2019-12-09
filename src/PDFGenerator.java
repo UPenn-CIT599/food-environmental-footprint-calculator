@@ -59,8 +59,8 @@ public class PDFGenerator {
 		// Add ListItem objects
 		double annualGHG = c.getAnnualGHG(user.getFoodWeight());
 		list.add(new ListItem("Your favourite food is " + user.getFoodName()))
-				.add(new ListItem("By eating " + user.getFoodWeight() + "(kg) everyday for 1 year, you'll have " + annualGHG + " emmission."))
-				.add(new ListItem("which is eqvilant to " + c.getCarKMEquivalent(annualGHG) + " car km."))
+				.add(new ListItem("By eating " + user.getFoodWeight() + "(kg) everyday for 1 year, you'll have " + annualGHG + " emmissions."))
+				.add(new ListItem("which is eqvilant to " + c.getCarKMEquivalent(annualGHG) + " passenger car kilometers."))
 		        .add(new ListItem("which is eqvilant to " + c.getEquivalentBulbLightDays(annualGHG) + " LED bulb light days."))
 		        .add(new ListItem("which is eqvilant to " + c.getEquivalentFlightKM(annualGHG) + " flight km"));
 		// Add the list
@@ -72,7 +72,7 @@ public class PDFGenerator {
 		 */
 		document.add(new Paragraph(""));
 		document.add(
-				new Paragraph("Here are some similiar food with lower CO2 emission you may consider.").setFont(font));
+				new Paragraph("Here are some similiar foods with lower CO2 emissions you may consider.").setFont(font));
 		//Create a table frame
 		document.setMargins(20, 20, 20, 20);
 		PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
@@ -80,8 +80,8 @@ public class PDFGenerator {
 		table.setWidth(UnitValue.createPercentValue(100));
 		//add Table Header
 		table.addHeaderCell(new Cell().add("FoodName").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
-		table.addHeaderCell(new Cell().add("GHG Value").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
-		table.addHeaderCell(new Cell().add("Calories").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
+		table.addHeaderCell(new Cell().add("Greenhouse Gas Value").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
+		table.addHeaderCell(new Cell().add("Calories/kg").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		ArrayList<String> recommendfood = c.getSimilarFood(user.getFoodName());
 		String food1 = recommendfood.get(0);
 		String food2 = recommendfood.get(1);
@@ -103,7 +103,7 @@ public class PDFGenerator {
 		 * Third Part: table of recommended dishes with pictures
 		 */
 	    document.add(new Paragraph(""));
-		document.add(new Paragraph("With above food, you can make these delicious dishes:").setFont(font));
+		document.add(new Paragraph("With the above foods, you can make these delicious dishes:").setFont(font));
 		//create table
 		Table table1 = new Table(new float[] { 2, 2, 2, 2 });
 		table1.setWidth(UnitValue.createPercentValue(100));
@@ -112,7 +112,7 @@ public class PDFGenerator {
 		//create HeaderCell
 		table1.addHeaderCell(new Cell().add("DishName").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		table1.addHeaderCell(new Cell().add("DishGroup").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
-		table1.addHeaderCell(new Cell().add("CO2 Emission").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
+		table1.addHeaderCell(new Cell().add("CO2 Emissions").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		table1.addHeaderCell(new Cell().add("Image").setFont(bold).setBackgroundColor(Color.LIGHT_GRAY));
 		
 		//create content
