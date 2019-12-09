@@ -2,7 +2,7 @@
 
 #### Before you begin:
 
-* Remember to install the whole 8 .jar packages so as to run full project functions. We have provided all the .jar packages in the folder “needed jars”.
+* Remember to install all of the 8 provided .jar packages to run full project functions. We have provided all the .jar packages in the folder “needed jars”.
 * Import the whole program from our Git repository, not just the “src” folder.
 
 #### Algorithm of food suggestions:
