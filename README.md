@@ -45,4 +45,4 @@ You can choose to receive an email that records all the results of this test by 
 
 ![alt text](https://github.com/UPenn-CIT599/final-project-food-environmental-footprint-calculator/blob/master/src/images/email.png "Email successful")
 
-![alt text](https://github.com/UPenn-CIT599/final-project-food-environmental-footprint-calculator/blob/master/src/images/email.png "PDF report")
+![alt text](https://github.com/UPenn-CIT599/final-project-food-environmental-footprint-calculator/blob/master/src/images/pdf.png "PDF report")
