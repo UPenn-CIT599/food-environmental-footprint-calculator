@@ -39,38 +39,3 @@ Fucheng worked on database collation (of food information), main calculation fun
 	5. Food.java
 	6. FoodDataReader.java
 	7. FoodDataReaderTest.java
-
-
->>> Credits
-
-Chewpaca the Alpaca image source:
-	1. https://www.vectorstock.com/royalty-free-vector/alpaca-llama-animal-cute-cartoon-funny-kawaii-vector-27857452
-
-Food and dishes emissions data used in the program from:
-	1. https://science.sciencemag.org/content/360/6392/987
-	2. http://orac.ghf.pccu.edu.tw/2_4.aspx
-
-Equivalent emissions data from:
-	1. CO2(eq) emissions from planes and passenger cars - US Environmental Protection Agency
-	2. CO2(eq) emissions from LED lightbulbs - University of Michigan Center of Sustainable Systems (css.umich.edu)
-
-Food calories data used in the program from:
-	1. https://www.calorieking.com/au/en/
-
-Dish pictures from:
-	1. https://www.bbcgoodfood.com/recipes
-	2. https://www.foodnetwork.com/
-
-Send Mail using JavaMail API:
-	1. https://www.oracle.com/technetwork/java/javamail/index.html
-	2. https://www.oracle.com/technetwork/articles/java/index-135046.html
-
-Create PDFs by using external iText.7.0.0:
-	1.https://itextpdf.com/en/resources/books/itext-7-jump-start-tutorial-java/we-start-installing-itext-7
-	2. https://github.com/itext/itext7
-
-Java Swing interface classes were built using WindowBuilder on Eclipse
-
-Guidance from the following people in CIT591 Fall 2019:
-	1. Prof. Arvind Bhusnurmath
-	2. Team 50's TA, Patrick McCauley
